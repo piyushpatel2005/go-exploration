@@ -1,5 +1,7 @@
 package main
+
 import "fmt" // importing a package
+
 func main() {
-  fmt.printf("Hello, world\n")
+	fmt.Printf("Hello, world\n")
 }
