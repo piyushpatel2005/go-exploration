@@ -35,11 +35,11 @@ jobs:
         run: sudo apt-get update && wget https://github.com/jgm/pandoc/releases/download/3.1.4/pandoc-3.1.4-1-amd64.deb && sudo dpkg -i pandoc-*.deb && pandoc --version
       - name: Create Slides
         run: pandoc -t revealjs slides.md -s -i -o index.html --slide-level=2  -V theme=moon
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v1
-      #   with:
-      #     # Upload entire repository
-      #     path: '.'
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
