@@ -19,6 +19,10 @@ author: Piyush Patel
 ## Code
 
 ```go
+package main
+
+import "fmt"
+
 func main() {
 	var numbers [4]int
 	numbers = [4]int{1, 2, 3, 4}
