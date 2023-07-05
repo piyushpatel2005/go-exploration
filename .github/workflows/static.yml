@@ -36,7 +36,7 @@ jobs:
       - name: Setup Pandoc
         run: apt-get update && apt-get -y install pandoc && pandoc --version
       - name: Create Slides
-        run: pandoc -t revealjs presentation.md -s -i -o index.html --slide-level=2  -V theme=moon
+        run: pandoc -t revealjs slides.md -s -i -o index.html --slide-level=2  -V theme=moon
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
