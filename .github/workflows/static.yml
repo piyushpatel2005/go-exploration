@@ -34,7 +34,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Setup Pandoc
-        run: apt-get update && apt-get -y install pandoc && pandoc --version
+        run: sudo apt-get update && sudo apt-get -y install pandoc && pandoc --version
       - name: Create Slides
         run: pandoc -t revealjs slides.md -s -i -o index.html --slide-level=2  -V theme=moon
       - name: Upload artifact
