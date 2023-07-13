@@ -11,6 +11,10 @@ func main() {
 	user = "Joseph"
 	fmt.Println(user)
 
+	// declare and initialize, type will be inferred automatically
+	var foo = "bar"
+	fmt.Println(foo)
+
 	// variables of one type cannot be assigned another type of value
 	// user = 11
 

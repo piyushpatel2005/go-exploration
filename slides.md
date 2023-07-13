@@ -1,22 +1,49 @@
 ---
-title: Markdown to Slides
+title: Go Programming
 author: Piyush Patel
 ---
 
-# Here is the first slide
+# Overview of Go
 
-- The first bullet point.
-- The second one.
-    - And the third.
-    - Another slide 
+- developed at Google and supported by Google
+- Version 1 released in 2012
+- Very efficient and high speed, compiles to machine code rather than JVM
+- Built-in support for concurrency
+- Syntax easy and concise
+- Module system to expand functionality, built-in Production ready HTTP server
+- Statically typed language but feels like dynamic
+- Garbage collection and has fast compilation
+- Built in tooling using `go` for built, run, test, install, etc.
 
-# This will start a new slide.
+## Who uses Go?
 
-- New bullet point.
-- etc.
-- etc.
+- Google
+- Facebook
+- Netflix
+- PayPal
+- Many more...
 
-## Code
+## What is it used for?
+
+- Kubernetes
+- Docker
+- Terraform
+
+# Prerequisites
+
+- Basic familiarity with any other programming language
+- VS Code or any other IDE setup
+- Go SDK as well as Git (for pulling modules)
+
+# Code
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.println("Hello World")
+    }
+}
+```
 
 ```go
 package main
@@ -24,17 +51,6 @@ package main
 import "fmt"
 
 func main() {
-	var numbers [4]int
-	numbers = [4]int{1, 2, 3, 4}
-	fmt.Println(numbers)
-	var numbers2 [4]int = [4]int{1, 2, 3, 4}
-	fmt.Println(numbers2)
+    fmt.Println("Hello World")
 }
 ```
-
-```shell
-$ go run main.go
-[1 2 3 4]
-[1 2 3 4]
-```
-
