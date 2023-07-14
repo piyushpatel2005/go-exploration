@@ -34,7 +34,7 @@ jobs:
       - name: Setup Pandoc
         run: sudo apt-get update && wget https://github.com/jgm/pandoc/releases/download/3.1.4/pandoc-3.1.4-1-amd64.deb && sudo dpkg -i pandoc-*.deb && pandoc --version
       - name: Create Slides
-        run: pandoc -t revealjs slides.md -s -i -o index.html --slide-level=2  -V theme=moon
+        run: pandoc slides/slides.md -o index.html -t revealjs -L slides/revealjs-codeblock.lua   --data-dir slides --template template.html -V highlightjs -V highlightjs-theme:monokai
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
