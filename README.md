@@ -124,7 +124,7 @@ Gravitation(9.81)
 Names must start with letter. They can have number, underscore. Every variables need name and type. So, they need declaration. [This code](src/02-variables.go) shows some of the methods for declaring and initializing variables.
 
 ```go
-var x int # variable name type
+var x int // variable name type, int is interesting because it will assign memory 4 byte or 8 byte depending on architecture 32bit or 64 bit. So, it will be int32 on 32-bit architecture and int64 for 64-bit architecture.
 var x,y int # declare two variables on same line
 // Defining alias (alternate name for a type)
 type Celsius float64
@@ -137,6 +137,7 @@ var x = 100 // Don't need to specify type of a variable
 var x int // declare
 x = 100 // initialize
 var x int // default value is x =0
+// When string is defined, it allocates two words in memory. The first word represents a pointer and the second word represents number of bytes of a string with zero value as 0.
 var x string // default value of string is x = ""
 // Declaration and initilization in the same statement
 x := 100 // type is inferred. This works only inside a function
@@ -625,7 +626,7 @@ On the other hand, when a function parameter is passed by reference, the actual 
 
 ## Structure
 
-It's a user-defined data type which groups several data elements for related entity. This allows to store multiple values of different data types under single variable name. For example, a person may have name, address, citizenship, security number, etc. So, we can create a structure for Person and it can include all these information under single variable. To initialize a structure we can use below syntax.
+It's a user-defined data type which groups several data elements for related entity. This allows to store multiple values of different data types under single variable name. For example, a person may have name, address, citizenship, security number, etc. So, we can create a structure for Person and it can include all these information under single variable. To initialize a structure we can use below syntax. Struct assigns contiguous blocks of memory for each of its members. So, if we have a struct with 2 fields of int16, it will assign 4 bytes plus a padding byte.
 
 ```go
 type <Name> struct {

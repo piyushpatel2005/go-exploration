@@ -47,11 +47,34 @@ public class Main {
 }
 ```
 
-```go {.jsx .fragment data-line-numbers="|1|2|4,6|5|18|21" data-id="code-animation"}
+```go {.jsx .fragment}
 package main
 import "fmt"
 
 func main() {
     fmt.Println("Hello World")
 }
+```
+
+### Installing Golang
+
+
+### First Go Program
+
+```go {.fragment data-line-numbers="|1|3|5,7|6" data-id="code-animation"}
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello World")
+}
+```
+
+```shell{.generic-code .fragment}
+$ go run hello.go
+```
+
+```shell{.fragment}
+Hello World
 ```
