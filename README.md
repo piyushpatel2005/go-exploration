@@ -13,6 +13,9 @@ Download go tarball. `go1.12.6.linux-amd64.targ.gz`.
 
 ```shell
 sudo tar -C /usr/local -xzf go1.12.6.linux-amd64.tar.gz
+tar -xzf go*.tar.gz
+sudo cp -r go /usr/local/
+# sudo mv go /usr/local/
 export PATH=$PATH:/usr/local/go/bin
 go version
 ```
@@ -620,13 +623,15 @@ fmt.Println(a)
 fmt.Println(*a)
 ```
 
-Now that we are aware of pointers, we can understand argument passing by value. The parameter is copied into another location of the memory. That copy is accessible only within the scope of the function and when we modify that variable, it will modify only copy and will not change the original variable value.
+Now that we are aware of pointers, we can understand argument [passing by value](./src/22-pointers.go). The parameter is copied into another location of the memory. That copy is accessible only within the scope of the function and when we modify that variable, it will modify only copy and will not change the original variable value.
 
 On the other hand, when a function parameter is passed by reference, the actual memory address is passed into the function call as a pointer. So, if the function modifies the values, the value in the calling function changes. Slices, maps and other complex data types are passed by reference. So, if we modify the slice in the function, it will modify the original slice as well as original array.
 
 ## Structure
 
 It's a user-defined data type which groups several data elements for related entity. This allows to store multiple values of different data types under single variable name. For example, a person may have name, address, citizenship, security number, etc. So, we can create a structure for Person and it can include all these information under single variable. To initialize a structure we can use below syntax. Struct assigns contiguous blocks of memory for each of its members. So, if we have a struct with 2 fields of int16, it will assign 4 bytes plus a padding byte.
+
+[Examples](./src/23-structures.go)
 
 ```go
 type <Name> struct {
@@ -836,3 +841,358 @@ func main() {
     printDetails(square)
 }
 ```
+
+## Concurrency
+
+Let's first understand between sequential and concurrency. Sequential programming is simple. Commands are executed one after another in linear fashion. Then comes multi-tasking where multiple tasks are executed. This is still single-core processor with context switching. Concurrency is like running multiple tasks at the same time. Concurrent programming is not same as parallel programming.
+
+```go
+// sequential program
+func main() {
+    start := time.Now()
+    for i:=1; i <= 100; i++ {
+        calculateSquare(i)
+    }
+    elapsed := time.Since(start)
+    fmt.Println("Elapsed time", elapsed)
+}
+
+func calculateSquare(i int) {
+    time.Sleep(1 * time.Second)
+    fmt.Println(i * i)
+}
+```
+
+Above code is [sequential](./src/26-sequential-execution.go), so it will take around 100 seconds.
+
+Go routines is the mechanism used in Go to run concurrent programs. This is considered as a lightweight thread that has its own independent execution. Go routines can be executed concurrently with other go-routines and it is the fundamental way to execute concurrent programs in Go. Go routines are managed by Go runtime. The syntax looks like below which applies to functions or methods. `go` keyword makes it run in a separate go routine.
+
+```go
+go func_name()
+```
+
+You can find an [example of go-routines](./src/27-go-routine.go) in code directory of this repo.
+
+Main function in the main package is the **main go-routine**. All go-routines are started from [main go-routine](src/28-main-goroutine.go). it represents main program. When main go-routine exits, it assumes all go-routines have been exited. Go routines do not have parents or children. They all execute in parallel. All go routines exit when main go routine exits. To prove that there is no parent-child relationship, we can use below code. The output of this code will not be deterministic because both methods `process1` and `process2` execute in separate go routines.
+
+```go
+package main
+
+import "fmt"
+import "time"
+
+func process1() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Running Process 1")
+}
+
+func process2() {
+	go process1()
+	time.Sleep(1 * time.Second)
+	fmt.Println("Running Process 2")
+}
+
+func main() {
+	go process2()
+	time.Sleep(2 * time.Second)
+}
+```
+
+**[Anonymous go-routine](src/29-anonymous-goroutine.go)** are anonymous functions. They don't have words. They are used only once. They can be called using go-routines. This routine behaves just like any other go-routine.
+
+```go
+go func() { }(args...)
+```
+
+```go
+package main
+
+func main() {
+    go func() {
+        fmt.Println("An anonymous function")
+    }()
+    time.Sleep(1 * time.Second)
+}
+```
+
+### Go routine scheduler
+
+When we launch go program, it will launch OS threads that is equal to logical CPUs available. They are completely managed by kernel or OS level. From creating, managing and terminating threads is managed by OS. We can find available number of logical processors using `runtime` package with a property `Numcpus()` methods. The logical threads are the number of physical cores available in your system multiplied by the number of threads that can run on each core (hardware threads). Go routines are lightweight application threads that run independently. The go routine has scheduler that will multiplex the go-routines on OS level threads in the go runtime. It schedules arbitrary number of go-routines onto an arbitrary number of OS threads(m x n multiplexing).
+
+OS Scheduler manages OS threads for each logical core. Within Go runtime, each of these threads will have one queue associated with it called LRQ (Local Run quque). It consists of all go-routines to be executed in that thread. Go runtime scheduler will be doing scheduling and context switching belonging to LRQ. We also have GRQ (Global run queue). It consists of all go-routines which are not assigned any LRQ. Go scheduler will assign these go routines to any of the Local run queue of OS thread. This is how Go scheduler works and multiplexes go routines on OS threads. Properties of Go scheduler include:
+
+- Cooperative scheduler:It means it's not pre-emptive. There is no time based pre-emption from the OS. In this OS, never interrupts a running process to initiate a context switch from one process to another. Processes must voluntarily yield control periodically or when logically blocked on a resource. Of course, there are some specific checkpoints which will ensure go-routine can yield execution to other go-routines. These are called context switches. For example, runtime calls the scheduler on function calls to check if new go routine needs to be scheduled. In this case, a context switch might happen. It is also possible that current go routine may continue. Examples when these kinds of context switching can happen include: function calls, network calls, garbage collection, channel operations, `go` keyword usage. The scheduler gets an option to context switch, but it does not mean it will always do so.
+
+#### Comparing Go-routines and Threads
+
+- go routines are cheaper. Just few KB in stack and stack can grow and shrink in size. With threads, stack size has to be specified and is fixed in size. OS threads generally start with 1MB. Go routines are cheap so we can start hundreds of thousands of go-routines.
+- Go routines are multiplexed to a fewer number of OS threads. There may be only one thread which can handle 1000s of go routines.
+- Scheduling of go routines is managed by Go runtime. So, it's faster. For threads, scheduling is done by OS runtime. So, context switching time for go-routines is much faster.
+- Go routines communicate using channels. Channels do not cause race condition when using shared memory. This is a powerful construct built into the language. It can be thought of bytes using with Go routines communicate with each other.
+
+### WaitGroups
+
+During the usage of go-routines, we saw that main go-routine was terminating before the other go-routines completed or even began their execution. To wait for all go-routines to finish, we can use wait group. A wait group is a construct for synchronization that allows multiple go-routines to wait for each other. There is package `sync` for this and it acts like a counter that keeps information about spawn go routines and blocks execution in a structured manner until its internal counter becomes zero. That is all go-routines has finished. The syntax for creating a waitgroup looks like below.
+
+```go
+var wg sync.Waitgroup
+```
+
+We can call various methods on the wait group. `Add(int)` method keeps track of number of go-routines to wait for. This acts like a counter. `Wait()` method blocks the execution of the code until the counter reduces to zero. `Done()` method decreases the internal counter in the `Add` method by 1. Each go routine calls `Done()` method which reduces the counter by 1. [Example of waitgroup](src/30-waitgroups.go) can be seen with usage of it. It executes in about 1 seconds but the output is not in specific order because go routines are not deterministic. We pass the waitgroup reference for go-routines to use them.
+
+### Channels
+
+Channels are a way through which different go-routines communicates. It's like a data exchange programming idea which allows us to exchange data between different parts of go-routine. Channels make concurrent programming easier. Traditional threading models were communicating by sharing memory, however channels try to avoid that because that can result in nasty bugs. These memories are locked by threads and there is possiblity of deadlock and thread contention over that data. Go routines and channels allow access to data using channels. Channels share memory by communicating which ensures that at a given time, only one routine has access to the memory. The communication in the channels is bi-directional, that is you can send and receive values from the same channel. By default, channels send and receive until the other side is ready. This way go-routines synchronize without the use of locks or conditional variables. Each channels holds data of particular data type. Syntax for this looks like below. We use `chan` keyword to declare channel of specific type. For example, below is example of string data type channel.
+
+```go
+var c chan string
+c := make(chan string)
+```
+
+Channels can be bi-directional or single-directional. Channel has several operations.
+- send a value using `<-` channel send operator. The value of `v` must be assignable to channel `ch`.
+- receive a value using `<-ch` operator.
+- closing a channel using `close(ch)`
+- querying buffer of a channel
+- querying length of a channel using `len(ch)` returns integer denoting the length of a channel
+
+### Unbuffered Channel
+```go
+ch <- v // send v value to channel ch
+val := <-ch // receive value from a channel
+close(ch) // close a channel
+cap(ch) // returns integer denoting the buffer of a channel
+len(ch) // find length of a channel 
+```
+
+The data sent in channel can be received only once in any of the go routines. By default, when we created channel, it creates unbuffered channel by default. This means it's going to block the execution of go routine sending the data until the other go routine has received previous value.
+[Example of two channels for communication](src/31-channels.go) between go routines explains how this works.
+
+The receive on a channel is blocked until there is another go routine sending data into that channel. A channel that needs a receiver as soon as a message is emitted to the channel is called Unbuffered channel. We do not need to declare the capacity for these kinds of channel because they cannot store any data. For unbuffered channel, the length is always zero.
+
+### Buffered Channel
+
+It will have capacity to hold data. In buffered channel, sending data into go-routine is blocked only if the buffere is full and receiving from a channel is blocked only when channel is empty.
+
+```go
+c := make (chan <data_type>, capacity)
+c := make(chan int, 10)
+```
+
+To find the currently available data in the channel, we can use the `len()` function to get length of the channel. These are number of elements queued in the channel. Length of the channel will never be higher than the capacity of the channel. For an unbuffered channel, the length is always zero.
+[Buffered Channel example](src/32-buffered-channel.go) shows how we can send 3 elements without receiving any data. If we add one more element into channel, it will exceed the capacity and this will cause deadlock situation. To avoid this situation, we have to call `receive` before sending 4th element. Similarly, if we remove all `send` operations into channel and directly call `receive` routine, it will cause deadlock because the channel is empty.
+
+We need to close the channel to make sure no more data can be sent to the channel. This is done when we do not want to send any more data to the channel. To [close a channel](src/33-closing-channel.go), we can use `close()` function. While receiving, we can check if the channel is closed by assigning second variable when receiving. This will have boolean values. If `ok` has `true`, it means channel is open and if `ok` is false, channel is closed and we will not receive any more values.
+
+```go
+v, ok := <- ch
+```
+
+### Panic
+
+In Go, panic is like an exception arising at runtime. Due to this execution of program is terminated. While working with channels, we may notice panic, [for example](src/34-panic.go), when sending to a channel once it has been closed or closing an already closed channel.
+
+### Using `range` for Channel receive
+
+We can use [`for...range` expression to receive data](src/35-channels-for-range.go) from the channel. In this case, we must ensure to close the channel. If channel is not closed, for range never finishes until channel is closed and it will result in panic situation.
+
+### Select Statement
+
+The select statement is similar go switch statement but this is specifically for channels. The select statement makes go-routine wait on multiple communication operations. In this, each of the case statement waits for a send or receive operation from a channel. The select statement blocks until any of the case statements are ready and if there is a situation when there are multiple case statements ready, then it selects one randomly and proceeds.
+
+```go
+select {
+    case channel_send_receive:
+        // statements
+    case channel_send_receive:
+        // statements
+    default:
+        // optional block    
+}
+```
+
+This select statement lets go routine wait on multiple communication operations. Select with channels and go-routine becomes a powerful tool for managing synchronization and concurrency. For example, in the [given example](src/36-select-statements.go), the output is non-deterministic. It can be "One" or "Two". The default case will be executed if none of the case statements have send or receive operation ready. This helps make select statement non-blocking. If all case statements are blocked, the default statement will be executed. Similar to `switch..case`, we can use `break` statement in the case blocks to terminate the select statement.
+
+Switch is non-blocking whereas select statements can block as they are using channels. Switch is deterministic because it goes in sequence whereas select statement is not deterministic.
+
+## Best Practices
+
+Whenever we launch a go-routine function, we must make sure it will eventually exit. if a go-routine would never terminate, it will occupy the memory reserved by the routine forever. This kind of memory leak is called *go-routine leak*. They leak if they end up either blocked forever on IO like channel communication or fall into infinite loops.
+
+```go
+func main() {
+    var wg = sync.WaitGroup
+    wg.Add(2)
+    go leakingRoutine(&wg)
+    wg.Wait()
+}
+
+func leakingRoutine(wg *sync.WaitGroup) {
+    ch := make(chan int)
+    go func() {
+        value := <- ch        
+        fmt.Println("Received", value)
+        wg.Done()
+    }()
+    fmt.Println("Finished go routine")
+    wg.Done()
+}
+```
+
+### Spinning up Go-routine inside Closure
+
+A closure is [a function defined inside another function](src/37-incorrect-closure.go). When closure is called, it has access to outer function's local variables.
+The start is always delayed by Go routine scheduler and we may not even have CPU available to run go-routine. By the time Go routine starts, the value of variable might have changed. It picks the value of the variable at the time go routine starts. So, never use closure to start go routine this way. If we want to pass outer variable inside go routine, we have to pass the variable explicitly as a method parameter. The output is still unordered because go routines do not execute in sequence.
+
+```go
+func main() {
+    var wg sync.WaitGroup
+    wg.Add(10)
+    for i := 1; i <= 10; i++ {
+        func () {
+            fmt.Println(i)
+            wg.Done()
+        }
+    }
+    wg.Wait()
+    fmt.Println("Finished")
+}
+```
+
+When to use buffered or unbuffered channels. Unbuffered channels are easy to follow whereas Buffered channels require size decision upfront. For using buffered channel, we have to handle the situation where the channel is blocking. This could be due to waiting for sender or receiver. These are useful when we know following.
+- how many go-routines we have launched 
+- we want to limit the number of go-routine we can launch 
+- we want to limit the amount of work that can be queued up.
+
+Most programs must return a response within certain amount of time. Hence, we can timeout the running code if it doesn't respond in specific amount of time. In select statements, we can block the timeout period using `time.After()` function. The `After()` function waits for a specified duration `d` to finish and return current time on a channel. The function signature looks like this.
+
+```go
+func After(d Duration) <- chan Time
+```
+
+[Blocking timeout in Select](src/38-select-timeout.go) is an example code.
+
+## Modules, Packages and Repos
+
+1. Repository: place in VCS where code is stored.
+2. Module: The root of the go module or library stored in repository. We can store more than one module in a single repo but not advisable. Every module is versioned so having same version for two modules is not actually correct. To make a module reusable, we have to declare that the project is a module. Every module has a globally unique identifier. Go modules can be downloaded from Github repository or private repository but it has to be globally unique. A module specifies the dependencies needed for it and go version in the `go.mod` file.
+3. Packages: Golang code is put in packages and packages are grouped to form modules.
+
+```shell
+mkdir module01 && cd module01
+go mod init <module_path>
+go mod init example.com/module01
+```
+
+This `go.mod` tracks dependencies. The directory module01 becomes a module as it has `go.mod` file. This file starts with module and module's unique path. This is the path that will be used when we want to use this as dependency. This also specifies minimum go version required.
+
+```shell
+go mod tidy # add any missing modules
+go run main.go
+```
+
+Once we run `go mod tidy` it will download required dependencies and also indirect dependencies. This will update the `go.mod` file accordingly. A collection of Go source code becomes module when we have a valid `go.mod` file in the root directory. This file lists module declaration, minimum compatible version of Go and dependencies for the imported third-party packages.
+
+```shell
+mkdir cryptit && cd cryptit
+go mod init github.com/piyushpatel2005/cryptit
+```
+
+Go uses capitalization to identify if package level identifier is accessible outside of the package. An identifier whose name starts with uppercase is accessible outside the package. Idenfiers with lowercase or starting with underscore can only be accessible inside the package. Anything that is exported is part of the package API. So, be sure to verify that you intend to export something. Import statement allows us to use exported functions, variables and constants in another package. It cannot be used without importing it.
+
+We can use the packages in the current package easily by specifying their full url in `import` statement. If we want to import this new module into another module such as `module01`, we have to specify similar path and run `go mod tidy` command. This produces error `cannot find module providing package`. Until we publish our modules to github, we cannot import it in another module. To import a local module, we can use `replace` directive.
+
+```go
+go mod edit -replace github.com/piyushpatel2005/cryptit=../cryptit
+go mod tidy
+```
+
+You will see corresponding entry into `go.mod` file.
+
+### Go commands
+
+- `go mod init`: Initializes and writes a new `go.mod` file in the current directory. It also accepts optional argument for module path that we are creating.
+- `go mod tidy`: ensures that `go.mod` file matches source code in the module. IT will add any missing module requirements necessary to build the current module's packages and dependencies. This also removes requirements on modules that dont provide relevant packages.
+- `go run <go_file>`: Compiles and runs the program. Internally, it will compile and build executable in temporary location, launches that executable and finally cleans it once app exits. This is very useful for testing of code interactively. This acts verify much like an interpreted language.
+- `go build`: compiles the packages named by import path along with their dependencies into executable. The executable gets created in the current source directory.
+- `go install`: This will compile the code and move the executable to `$GOPATH/bin` directory so that we can run this command from anywhere in terminal. We can check GOPATH using `go env GOPATH`.
+- `go get`: resolves the command line arguments to packages at specific module versions. This also updates `go.mod` file to require those versions and downloads source code into the module cache. This is used to add a dependency for a package or upgrade it to the latest version using `go get github.com/package` or to specific version using `go get github.com/package@v1.2.2`.
+
+### Compiling and Installing application
+
+```shell
+go build # compile into executable
+./cryptit # produces desired output
+```
+
+This requires us to be in the directory. If we run it from any other location in terminal, we have to specify full path of the application. In order for us to be able to run this application from anywhere, we have to add GOPATH to PATH variable. To find GOPATH, we can use `go env GOPATH` and then export this in the PATH variable using `export PATH=$PATH:<GOPATH>`. Again, we have to run `go build` of application, we can check in `GOPATH/bin` if there are any binaries in there. We can use `go install` and it will install the binary in `GOPATH/bin`. Now, we can run the application from any other directory in the terminal.
+
+```shell
+go env GOPATH
+export PATH=$PATH:GOPATH
+go build
+ls $GOPATH/bin
+go install
+./cryptit # from any location in terminal.
+```
+
+## Publishing a module
+
+While developing a module, we should design and code the packages that module will include. We commit the repo using Go conventions that ensure it's available to other Go tools. Publish the module to make it discoverable by developers. As we update code, make sure to revise the module with versions. The version number should specify backward compatability.
+
+When designing a module's public API, keep functionality focused and ensure backward compatability.
+We can publish module by tagging code in your repository to make it available for other developers. Developers can use Go tools like `go get` command to download module's code to use in their code. After we've published module and someone has fetched it with Go tools, it will become visible on the Go package discovery website `pkg.go.dev`. This is where developers can search for modules and read respective documentation.
+
+For **Versioning**, we use semantic versioning system. When we update the code, we modify the version number which will specify its backward compatability and stability. We use module version number by tagging module's source in the repository with the number. In this model of versioning, the first number indicates major version which means if a major version is changed, it may not backward compatible. It does not guarantee backward compatability Second part reflects minor version which adds potentially new APIs, but still largely backward compatible. The last part is patch version which is like bug fix or security fix. This also guarantees backward compatability. The fourth part is optional and may include pre-release identifier like `alpha.1` or `beta.5`, etc. This signals that this is pre-release version and the API may likely change as it evolves.
+
+For publishing our newly developed module, we can use below.
+
+```shell
+cd src/cryptit
+git init
+git remote add origin https://github.com/piyushpatel2005/cryptit.git
+git remote -v
+git add .
+git commit -am "Cryptit module created"
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Now, we can remove the `replace` directve in `module01/go.mod` file along with `require` declaration. We can add the published module using `go get github.com/piyushpatel2005/cryptit@v0.1.0`. This will add entry into `go.mod` file and we can run the application using `go run main.go` in module01.
+
+While naming packages, we should name them descriptively. The names should possibly with single word. Also, the functions defined inside the package should not include the package name. For example, it should have names like below. There is no point of including package name `string` in the method name like `formatString`.
+
+```
+string 
+    format
+    print
+    read
+```
+
+As a general naming rules, you should always try to make the name of the package match the name of the directory that contains the package. This helps in easily locating respective source code. It's not absolutely necessary and we have been using `main` package without this name for directory. We cannot import `main` package so this does not cause confusion.
+
+### Best Practices
+
+In Go, documentation is important and should be always incorporated. Go makes writing documentation very easy and accessible. We use `go doc` to access documentation for any module. It parses go source code, including comments and produces documentation in HTML format. This allows us to write documentation as comments and is always part of the actual source code. To document anything (a type, variable, constant, function or package) in Go, we just write a comment before the declaration of that component in source code file. Go doc will parse that as a documentation for that type or component. We can also use a blank comment to create new paragraphs in documentation. For lengthy comments, we can put the comments in a file `doc.go`.
+
+For viewing the documentation for a package, we can use `go doc package_name` and similarly to view documentation for an identifier defined in the package, we can use `go doc <package_name>.<identifier>`.
+
+```shell
+go doc decrypt
+go doc decrypt.Nimbus # this displays doc for Numbus function
+```
+
+When importing packages, we may find two packages with same name. In this case, we may want to rename one of the package, to avoid name collision.
+
+```go
+import (
+    crand "crypto/rand"
+    "math/rand"
+)
+```
+
+In above code, we cna use `crypto/rand` by using `crand`. This is like a package alias.
+
+## Core Packages
+
+### 
