@@ -1193,6 +1193,27 @@ import (
 
 In above code, we cna use `crypto/rand` by using `crand`. This is like a package alias.
 
-## Core Packages
+## Important Packages
 
-### 
+Go is made of packages and they allow for modular code. Packages allow us to have reusable code with an abstraction. Abstraction allows us to reuse existing code without knowing the details of how that is developed. When the code is written by someone else, we can use them by adding a dependency in our project. These are also referred to as third party packages. When packages come as a part of programming language itself, you do not need to add any third party dependency in your project. 
+
+In Golang, the built in packages come as a library known as standard library. These are group of packages bundled together. It contains various packages some of which we will see in this section.
+
+### `strings` package
+
+This package provides several useful methods to make it easier to [work with string data types](./src/).
+
+- `Count(s, substring) int`: used to count number of occurrences of `substring` in `s`. If `substring` is empty string, it will return 1 + number of characters in `s`.
+- `Contains(s, substring) bool`: used to find if a `substring` is present in string `s`.
+- `ToUpper(s) string`: convert to uppercase
+- `ToLower(s) string`: convert to lowercase
+- `HasPrefix(s, prefix) bool`: checks whether the string `s` starts with `prefix`.
+- `HasSuffix(s, suffix) bool`: checks whether the string `s` ends with `suffix`.
+- `Index(s, substr) int`: returns the index of the first instance of `substr` in `s`. If it does not occur, return -1.
+- `LastIndex(s, substr) int`: returns the index of the last instance of `substr` in `s` otherwise -1.
+- `Compare(a, b) int`: compares two strings and returns integer. If `a == b` return 0, if `a < b` return -1. If `a > b` return +1.
+- `Replace(str, old, new, n) string`: returns new string by replacing `n` occurrences of `old` with `new`. If `n < 0`, it will replace all occurrences. Strings are immutable so cannot be modified once created.
+- `ReplaceAll(str, old, new) string`: returns new string with all `old` substring replaced by `new` in original string `str`.
+- `Trim(s, cutset string) string`: trims leading and trailing characters from `cutset` removed.
+- `Split(s, sep string) []string`: slices `s` into substrings separated by `sep` and returns a slice of substrings
+- `Join(elems []string, sep string) string`: joins the elements of slice `elems` by using separator `sep` and returns as a string
