@@ -4,7 +4,9 @@ author:
     - Piyush Patel
 ---
 
-### Overview of Go
+## Overview of Go
+
+::: incremental
 
 - Developed at Google and supported by Google, version 1 in 2012
 - Very efficient and high speed, compiles to machine code rather than JVM
@@ -17,7 +19,22 @@ author:
 - Another bullet
 - Next bullet
 
-### Who uses Go?
+:::
+
+::: wrapper
+
+## Temporary slide
+
+- A slide
+- Second slide
+
+## Nested Slide
+
+- Nested slide content
+
+:::
+
+## Who uses Go?
 
 - Google
 - Facebook
@@ -25,19 +42,19 @@ author:
 - PayPal
 - Many more...
 
-### What is it used for?
+## What is it used for?
 
 - Kubernetes
 - Docker
 - Terraform
 
-### Prerequisites
+## Prerequisites
 
 - Basic familiarity with any other programming language
 - VS Code or any other IDE setup
 - Go SDK as well as Git (for pulling modules)
 
-### Code
+## Code
 
 ```java {.numberLines .fragment}
 public class Main {
@@ -56,7 +73,7 @@ func main() {
 }
 ```
 
-### Installing Golang
+## Installing Golang
 
 
 ### First Go Program
