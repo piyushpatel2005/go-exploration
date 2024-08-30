@@ -1,0 +1,28 @@
+# Go Learning Notes
+
+Go is one of the newest languages and it is growing in popularity very rapidly. This is developed by Google and backed by special team at Google. Go is also called Golang.
+
+## Table of Contents
+
+- [Introduction to Golang](introduction-to-golang/index.md)
+- [Installing Go CLI](installing-go-cli/index.md)
+- [Hello World in Go](hello-world-in-go/index.md)
+- [Variables and Data Types](variables-and-data-types/index.md)
+- [Printing and Taking User Input](printing-and-taking-user-input/index.md)
+- [Data Type Conversion](data-type-conversion/index.md)
+- [Operators in Go](operators-in-go/index.md)
+- [Conditionals in Golang](conditionals-in-golang/index.md)
+- [Switch Case Statement](switch-case-statement/index.md)
+- [For Loop in Go](for-loop-in-go/index.md)
+- [Arrays in Go](golang-arrays/index.md)
+- [Slices in Go](slices/index.md)
+- [Maps in Go](maps/index.md)
+- [Functions in Go](functions-in-golang/index.md)
+- [Variadic Functions](variadic-functions/index.md)
+- [Anonymous Functions](anonymous-functions/index.md)
+- [Higher Order Functions](higher-order-functions/index.md)
+- [Recursive Functions](recursive-functions/index.md)
+- [Defer Statement](defer-statement/index.md)
+- [Pointers in Go](pointers/index.md)
+- [Structures in Go](structures-in-go/index.md)
+- [Interfaces in Go](interfaces/index.md)
