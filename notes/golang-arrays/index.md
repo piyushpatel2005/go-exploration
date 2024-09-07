@@ -1,11 +1,6 @@
----
-title: "Arrays in Golang"
-date: 2023-08-06T13:19:13-04:00
-draft: false
----
+# Arrays
 
 Often times, it's necessary to store not just single value for any data type, but we want to store a collection of values for a data type. This is where collection data types from a language come in handy. In this lesson, we look at first collection data type called **arrays**.
-<!--more-->
 
 ## Overview
 

@@ -1,12 +1,6 @@
----
-title: "Higher Order Functions"
-date: 2023-08-11T18:58:25Z
-draft: false
----
+# Higher Order Functions
 
 Higher order functions are functions which receive a function as input or return a function as output. This is very useful in functional programming. This helps with code readability.
-
-<!--more-->
 
 ## Function as Parameter
 

@@ -1,11 +1,6 @@
----
-title: "Switch Case Statement"
-date: 2023-08-06T11:33:29-04:00
-draft: false
----
+# Switch Case Statement
 
 Even though we have `if...else` construct in Go, there may be situation when we have to check so many conditions and even we may want to execute two `if` blocks than just one. `switch-case` statements provide this kind of flexibility and are more readable when we have to write multiple `if` blocks.
-<!--more-->
 
 ### Common Switch Case Statement
 

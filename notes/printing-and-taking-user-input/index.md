@@ -1,8 +1,4 @@
----
-title: "Printing and Taking User Input"
-date: 2023-07-27T22:42:28-04:00
-draft: false
----
+# Printing and Taking User Input
 
 There are various occassions when we have to print values or variables to show to users. Similarly, there will be situations when we want to respond to user input in different ways. For this, we have to have a ability to take user input and flexibility to provide different output. This lesson teaches **how to take user input** and different **ways to format string output**.
 

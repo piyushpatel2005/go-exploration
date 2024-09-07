@@ -1,12 +1,7 @@
----
-title: "Conditionals in Golang"
-date: 2023-07-31T13:55:45-04:00
-draft: false
----
+# Conditionals
 
 Conditional constructs in Programming languages allow us to make decision based on certain conditions. Usually every programming language has such kind of constructs using `if...else` keywords. These usually take a logical statement and based on whether it returns `true` or `false`, one of the blocks get executed.
 
-<!--more-->
 ## Overview
 
 This lesson talks about conditional statements using simple `if` construct followed by `if..else` blocks. We will also take a look at *nested if* statements and multiple conditions using `if..else if..else` constructs.

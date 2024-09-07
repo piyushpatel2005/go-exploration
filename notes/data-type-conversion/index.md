@@ -1,12 +1,6 @@
----
-title: "Data Type Conversion"
-date: 2023-07-28T11:29:45-04:00
-draft: false
----
+# Data Type Conversion
 
 Go is strongly typed language. That means it will not accept other types when variable is declared with different type. Data type conversion comes very useful in order to perform certain operation on the data.
-
-<!--more-->
 
 ## How to check data type in Go?
 

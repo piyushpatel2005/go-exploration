@@ -1,12 +1,6 @@
----
-title: "Variadic Functions in Go"
-date: 2023-08-11T15:40:28Z
-draft: false
----
+# Variadic Functions
 
 In this lesson, let's learn about variadic functions. These are functions which take variable number of arguments.
-
-<!--more-->
 
 **Variadic functions** are functions which accept variable number of arguments of the same type. 
 

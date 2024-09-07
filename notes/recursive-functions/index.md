@@ -1,11 +1,6 @@
----
-title: "Recursive Functions"
-date: 2023-08-12T00:18:31Z
-draft: false
----
+# Recursive Functions
 
 Recursion is one of the techniques used to solve complex problems. This is useful in solving problems where the solution depends on solutions to smaller instances of the same problem.
-<!--more-->
 
 ## What are Recursive Functions?
 Recursive functions are functions where it calls itself. The function calls itself until it reaches the base case. This is used to recursive problems where the problem can be solved by smaller part of the same problem. This technique is part of divide and conquer strategy for solving problems.

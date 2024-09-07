@@ -1,11 +1,6 @@
----
-title: "Installing Go CLI"
-date: 2023-07-20T17:12:43-04:00
-draft: false
----
+# Installing Go CLI
 
 This tutorial talks about **how to install Go compiler** in your machine to start learning coding in Golang.
-<!--more-->
 
 ## Set up Go in your System
 

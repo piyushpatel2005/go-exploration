@@ -1,12 +1,6 @@
----
-title: "Slices in Go"
-date: 2023-08-06T14:36:41-04:00
-draft: false
----
+# Slices
 
 In Go, we do not have list data type which will grow as we need to add more elements into it. However, we have **slices** which are made from arrays and can grow like ArrayList in other languages.
-
-<!--more-->
 
 ## Overview
 

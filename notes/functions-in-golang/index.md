@@ -1,11 +1,6 @@
----
-title: "Functions in Golang"
-date: 2023-08-10T06:03:06-04:00
-draft: false
----
+# Functions
 
 Functions help make code reusable and modular. They also help code readability and are very useful construct in any programming language. This lesson explains how we can define function and how to use them in our code.
-<!--more-->
 
 ## Overview 
 So far we have seen various data structures in Go. This lesson explains what functions are, their advantages and various examples on functions.

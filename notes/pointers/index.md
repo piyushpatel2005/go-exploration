@@ -1,11 +1,6 @@
----
-title: "Pointer Manipulations in Go"
-date: 2023-08-12T17:39:30Z
-draft: false
----
+# Pointers
 
 Pointers are one of the most powerful idea in programming, but this is also one of the most complicated structure as well. This is very useful for efficiently manipulating memory values.
-<!--more-->
 
 ## Overview
 

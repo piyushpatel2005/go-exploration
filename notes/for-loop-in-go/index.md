@@ -1,11 +1,6 @@
----
-title: "For Loop"
-date: 2023-08-06T12:43:48-04:00
-draft: false
----
+# For Loop
 
 In this lesson, we learn about the `for` loop syntax for Golang and how to write for loop in Go.
-<!--more-->
 
 Go is very simple and tries to minimize developer errors. For this, Go supports only one kind of loops and that is using `for` keyword. Go does not have `while` or `do...while` loop.
 

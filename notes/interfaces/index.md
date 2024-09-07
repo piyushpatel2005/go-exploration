@@ -1,11 +1,6 @@
----
-title: "Interfaces in Golang"
-date: 2023-08-13T04:10:07Z
-draft: false
----
+# Interfaces
 
 In Golang, there are primarily two ways to handle encapsulation. These are structures and interfaces. Interfaces define method sets available for a struct. This helps with featues like Polymorphism in object oriented programming languages.
-<!--more-->
 
 - Interfaces specify method sets and is used to create modularity in Go programming language. 
 - It is like a blueprint for a method set. This is defined so that it can be implemented by other types like Structures. 

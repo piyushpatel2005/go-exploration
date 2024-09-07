@@ -1,12 +1,6 @@
----
-title: "Hello World in Go"
-date: 2023-07-20T22:28:51-04:00
-draft: false
----
-
+# Hello World in Go
 
 In this tutorial, we will take a look at very basic syntax of Go programming language by writing very simple "Hello World" code in Go.
-<!--more-->
 
 ## Simple Go Program
 

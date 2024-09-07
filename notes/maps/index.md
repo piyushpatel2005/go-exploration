@@ -1,12 +1,6 @@
----
-title: "Maps in Golang"
-date: 2023-08-07T09:11:56-04:00
-draft: false
----
+# Maps
 
-Sometimes we do not need data to be independent. Usually data is associated with a specific object, like a person's salary or user's profile. In such situation, we still use array indices to track each object, but that becomes very difficult. This is where Maps become useful. Maps are just a key-value association.
-
-<!--more-->
+Sometimes you do not need data to be independent. Usually data is associated with a specific object, like a person's salary or user's profile. In such situation, you can still use array indices to track each object, but that becomes very difficult. This is where Maps become useful. Maps are just a key-value association.
 
 ## Overview
 
@@ -74,7 +68,7 @@ func main() {
 }
 ```
 
-We can also declare and initialize a map with make function. We can also assign new key-value pairs using assignment operator as shown in line `9` below.
+You can also declare and initialize a map with make function. You can also assign new key-value pairs using assignment operator as shown in line `9` below.
 
 ```go
 package main
@@ -220,6 +214,47 @@ Again, the `map` data-structure is unordered. So, output below sometimes may not
 one has value 1
 two has value 2
 three has value 3
+```
+
+Alternatively, if you only need key, you can ignore the value by using `_` as shown below.
+
+```go  
+package main
+
+import "fmt"
+
+func main() {
+	numbers := map[string]int{"one": 1, "two": 2, "three": 3}
+	for key := range numbers {
+		fmt.Println(key)
+	}
+}
+```
+
+## Deleting a Key from the map
+
+To delete a key-value pair from the map, you could use `delete` function. This function takes two arguments, first is the map and second is the key to be deleted.
+
+**Example:**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    numbers := map[string]int{"one": 1, "two": 2, "three": 3}
+    fmt.Printf("%v\n", numbers)
+    delete(numbers, "one")
+    fmt.Printf("%v\n", numbers)
+}
+```
+
+**Output:**
+
+```output{ lineNos=false }
+map[one:1 three:3 two:2]
+map[three:3 two:2]
 ```
 
 ## Clean up Map

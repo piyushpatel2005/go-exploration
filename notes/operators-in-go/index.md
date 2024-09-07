@@ -1,12 +1,6 @@
----
-title: "Operators in Go"
-date: 2023-07-29T19:54:28-04:00
-draft: false
----
+# Operators
 
 Golang provides different operators to perform different kinds of operations. The main operators are arithmetic, comparison,logical, assignment and bitwise operators.
-
-<!--more-->
 
 ## Overview
 

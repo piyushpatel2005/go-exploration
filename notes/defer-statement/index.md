@@ -1,11 +1,6 @@
----
-title: "Defer Statement"
-date: 2023-08-12T17:22:36Z
-draft: false
----
+# Defer Statement
 
 Go has normal control flow statements like conditionals, loops, but it also has an interesting idea of `defer`. A defer statement defers the execution of a function until the surrounding function returns.
-<!--more-->
 
 The deferred call's arguments are evaluated immediately, but the function call is not executed until the surrounding function returns. Let's see a simple example.
 

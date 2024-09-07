@@ -1,8 +1,4 @@
----
-title: "Variables and Data Types"
-date: 2023-07-21T15:13:15-04:00
-draft: false
----
+# Variabls and Data Types
 
 Let's take a look at variables and data types available in Go programming language. We will cover primitive data types and complex data types briefly and see different options for variable declaration.
 

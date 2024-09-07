@@ -1,12 +1,6 @@
----
-title: "Anonymous Functions"
-date: 2023-08-11T16:12:23Z
-draft: false
----
+# Anonymous Functions
 
 Anonymous Functions are functions without any specific name assigned to it. They are usually used once only that's why assigning a name may not be so much useful. 
-
-<!--more-->
 
 **Anonymous functions** look and behave same as normal functions, in that they can input arguments and return some output. Anonymous functins are also called *function literal*. This is one of the fundamental feature of any functional programming language. Go does support functional programming with built-in features.
 
