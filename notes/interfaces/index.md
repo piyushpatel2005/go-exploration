@@ -89,3 +89,162 @@ In this case, we define `interface` of type `Shape`. Further, we define two stru
 Area = 12.56, Perimeter = 12.56
 Area = 4.00, Perimeter = 8.00
 ```
+
+## Embedding Interfaces
+
+Interfaces can also be embedded in other interfaces. This is similar to embedding structures in Golang as you will see in upcoming tutorials. This is useful when we want to extend an interface with additional methods. In Go, the interfaces are meant to be relatively small and simple. This is why embedding interfaces is not used as much as embedding structures.
+
+```go
+package main
+
+import  "fmt"
+
+type Walker interface {
+	Walk()
+}
+
+type Talker interface {
+	Talk()
+}
+
+type Flyer interface {
+	Fly()
+}
+
+type Human struct {
+	Name string
+	Age  int
+}
+
+func (h Human) Walk() {
+	fmt.Println(h.Name, "is walking")
+}
+
+func (h Human) Talk() {
+	fmt.Println(h.Name, "is talking")
+}
+
+type Bird struct {
+	Name string
+}
+
+func (b Bird) Fly() {
+	fmt.Println(b.Name, "is flying")
+}
+
+func (b Bird) Talk() {
+	fmt.Println(b.Name, "is talking")
+}
+
+func (b Bird) Walk() {
+	fmt.Println(b.Name, "is walking")
+}
+
+func main() {
+	h := Human{"John", 25}
+	h.Walk()
+	h.Talk()
+
+	b := Bird{"Pigeon"}
+	b.Fly()
+	b.Talk()
+	b.Walk()
+}
+```
+
+In this case, I've defined three interfaces `Walker`, `Talker` and `Flyer`. Next, I've defined two structs `Human` and `Bird`. Both of them implement these interfaces. `Human` implements `Walker` and `Talker` interfaces. `Bird` implements `Flyer`, `Talker` and `Walker` interfaces. 
+
+If I wanted I could define a new interafce `Humanoid` which embeds `Walker` and `Talker` interfaces. It can also have additional methods if needed.
+
+```go
+type Humanoid interface {
+	Walker
+	Talker
+	Study()
+}
+```
+
+With this, `Human` struct would need to implement `Study` method. Here, `Humanoid` has `Walker`, `Talker` interface embedded in it. So, any `Humanoid` will have to implement their methods `Walk`, and `Talk`. Additionally, `Humanoid` also defines new method `Study` which any type implementing `Humanoid` will have to implement.
+
+```go
+package main
+
+import "fmt"
+
+type Walker interface {
+	Walk()
+}
+
+type Talker interface {
+	Talk()
+}
+
+type Flyer interface {
+	Fly()
+}
+
+type Humanoid interface {
+	Walker
+	Talker
+	Study()
+}
+
+type Human struct {
+	Name string
+	Age  int
+}
+
+func (h Human) Walk() {
+	fmt.Println(h.Name, "is walking")
+}
+
+func (h Human) Talk() {
+	fmt.Println(h.Name, "is talking")
+}
+
+func (h Human) Study() {
+	fmt.Println("Teacher is teaching", h.Name)
+	fmt.Println(h.Name, "is studying")
+}
+
+type Bird struct {
+	Name string
+}
+
+func (b Bird) Fly() {
+	fmt.Println(b.Name, "is flying")
+}
+
+func (b Bird) Talk() {
+	fmt.Println(b.Name, "is talking")
+}
+
+func (b Bird) Walk() {
+	fmt.Println(b.Name, "is walking")
+}
+
+func teach(h Humanoid) {
+	h.Study()
+}
+
+func main() {
+	h := Human{"John", 25}
+	h.Walk()
+	h.Talk()
+	teach(h)
+
+	fmt.Println("=====================================")
+
+	b := Bird{"Pigeon"}
+	b.Fly()
+	b.Talk()
+	b.Walk()
+	//teach(b) // This will throw an error
+}
+```
+
+The cool thing with interfaces is that if you now try to pass `Bird` into `teach` function, it will throw an error. This is because `Bird` does not implement `Study` method which is required by `Humanoid` interface.
+
+```output{ lineNos=false }
+cannot use b (variable of type Bird) as Humanoid value in argument to teach: Bird does not implement Humanoid (missing method Study)
+```

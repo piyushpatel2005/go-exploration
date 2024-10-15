@@ -83,7 +83,7 @@ Notice that in this case, you just have to `iota` for the first value and rest o
 
 ## Assigning Methods to Custom types
 
-You can also assign methods to custom types. This is a very powerful feature of Go and helps you implement object-oriented code structures. You can define a method on any type that is defined in the same package. This is a way to define methods on custom types. Let's see how we can define a method on `Day` type.
+You can also assign methods to custom types. This is a very powerful feature of Go and helps you implement object-oriented code structures. You can define a method on any type that is defined in the same package. This is a way to define methods on custom types. Let's see how we can define a method on `Day` type. In this case, I'm implementing `fmt.Stringer` interface and providing string representation of the day. So, whenever you try to print the `Day` type, you will get the string representation of the day which will be lot more readable.
 
 ```go
 package main
