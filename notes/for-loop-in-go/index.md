@@ -49,7 +49,7 @@ func main() {
 ```
 
 
-We can also skip any of these statements. For example, in below code, this same `for` loop is working like a `while` loop which produces same result as above.
+You can also skip any of these statements. For example, in below code, this same `for` loop is working like a `while` loop which produces same result as above.
 
 ```go
 package main
@@ -65,7 +65,7 @@ func main() {
 }
 ```
 
-If we omit certain statements, that will likely cause **infinite loop**. Below is an example of infinite loop which prints `0` forever.
+If you omit certain statements, that will likely cause **infinite loop**. Below is an example of infinite loop which prints `0` forever.
 
 ```go
 i := 0
@@ -85,7 +85,7 @@ import "fmt"
 
 func main() {
 	for i := 1; i <= 10; i++ {
-		if i%2 != 0 {
+		if i % 2 != 0 {
 			continue
 		}
 		fmt.Println(i)
@@ -114,7 +114,7 @@ import "fmt"
 
 func main() {
 	for i := 1; i <= 10; i++ {
-		if i%5 == 0 {
+		if i % 5 == 0 {
 			fmt.Println("Breaking out of loop when i is", i)
 			break
 		}

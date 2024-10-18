@@ -19,8 +19,8 @@ To assign an array with list of values, we can use curly braces (`{}`). We can a
 **Example**
 
 ```go
-var salaries [5] int
-var names [5] string
+var salaries [5]int
+var names [5]string
 var names [5]string = [5]string{"John", "Jenny", "Zoe"} // the number of elements on the right should be less than or equal to capacity on the left side.
 names2 := [5]string{"John", "Jenny", "Zoe"} 
 ```
@@ -89,7 +89,7 @@ func main() {
 
 ## Finding Array Length
 
-If we want to check the length property of an array, we can use the `len` function. For Golang arrays, the length and the capacity are the same.
+If you want to check the length property of an array, we can use the `len` function. For Golang arrays, the length and the capacity are the same.
 
 ```go
 package main
@@ -112,7 +112,7 @@ Length of [John Jenny Zoe] array: 3
 
 ## Array Indexing
 
- To get individual elements of an array, we can use array indexing. Indices start at 0. So, to access element at index position `1`, we can use `names[1]`.
+ To get individual elements of an array, you can use array indexing. Indices start at 0. So, to access element at index position `1`, we can use `names[1]`.
 
  **Example:**
 
@@ -136,7 +136,7 @@ Jenny
 4
 ```
 
- We can also change the value at any index position using assignment operators. Index must be between `0` and `len(arr) - 1`. If we go above or below this index, we can compilation error (out of bounds).
+ You can also change the value at any index position using assignment operators. Index must be between `0` and `len(arr) - 1`. If you go above or below these indices range, you get compilation error (out of bounds).
 
  **Example:**
 
@@ -219,7 +219,7 @@ for _, elem := range numbers {
 
 ## Multi-Dimensional Arrays
 
-Multi-dimensional array is like an array of array with multiple dimensions like in Mathematics. To access individual elements, we have to use multiple indices.
+Multi-dimensional array is like an array of array with multiple dimensions. This is similar to matrices concept in mathematics. To access individual elements, we have to use multiple indices.
 
 Multi-dimensional arrays are declared using below syntax.
 

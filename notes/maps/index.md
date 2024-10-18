@@ -54,7 +54,7 @@ func main() {
 map[one:1 two:2]
 ```
 
-We can find how many key value pairs exist in a map using `len` function.
+You can find how many key value pairs exist in a map using `len` function.
 
 **Example:**
 ```go
@@ -99,7 +99,7 @@ map[1:hi 2:hello 3:there 4: 5:]
 
 ## Accessing elements of a Map in Go
 
-We can get values for a specific key using its keys. Just like arrays and slices we can use `[]` to access value associated with a key.
+You can get values for a specific key using its keys. Just like arrays and slices we can use `[]` to access value associated with a key.
 
 **Example:**
 ```go
@@ -119,7 +119,7 @@ func main() {
 1
 ```
 
-When getting values, we get value and a boolean flag if the key exists or not. If key doesn't exist, the first value will be zero value. This we can use with conditionals to verify if a key exists and if exists, get the value else do something else.
+When retrieving values, we get value and a boolean flag if the key exists or not. If key doesn't exist, the first value will be zero value. This we can use with conditionals to verify if a key exists and if exists, get the value else do something else.
 
 ```go
 package main
@@ -142,7 +142,7 @@ true 3
 false 0
 ```
 
-We can assign new key-value pairs using `map_name[key] = value` syntax as you've already seen. However, if we try to assign the existing key with a new value, it will simply overwrite existing values.
+You can also assign new key-value pairs using `map_name[key] = value` syntax as you've already seen. However, if we try to assign the existing key with a new value, it will simply overwrite existing values.
 
 ```go
 package main

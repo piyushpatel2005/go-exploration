@@ -1,6 +1,6 @@
 # Slices
 
-In Go, we do not have list data type which will grow as we need to add more elements into it. However, we have **slices** which are made from arrays and can grow like ArrayList in other languages.
+In Go, you don't have a datastructure like list or dynamic array which will grow as we need to add more elements into it. However, you have **slices** which are made from arrays and can grow like `ArrayList` in other languages.
 
 ## Overview
 
@@ -45,7 +45,7 @@ Another method to create a slice is to use `make` function. The syntax for this 
 slice := make ([] <data_type>, length, capacity)
 ```
 
-The first argument to the [make function](https://pkg.go.dev/builtin#make) is the data type of the slice we want to create then we have legnth of the array and capacity of the array.
+The first argument to the [make function](https://pkg.go.dev/builtin#make) is the data type of the slice you want to create then you provide the length of the slice and the capacity of the slice.
 
 **Example:**
 ```go
@@ -66,7 +66,7 @@ In this case, uninitialized slice is created using `make` function and all the e
 [0 0 0]
 ```
 
-We can check the length and capacity of the slice using `len` and `cap` function respectively.
+You can check the length and capacity of the slice using `len` and `cap` function respectively.
 
 ```go
 package main
@@ -86,7 +86,7 @@ Length 3, Capacity: 5
 
 ### How to create a Slice from an Array
 
-We can create a slice from an array. To do that, we can use `array[start_index: end_index]` syntax. In this operation, the `start_index` element is included in the output slice but `end_index` element is excluded.
+you can also create a slice from an array. To do that, you can use `array[start_index: end_index]` syntax. In this operation, the `start_index` element is included in the output slice but `end_index` element is excluded.
 
 **Example:**
 ```go
@@ -130,7 +130,7 @@ Length of array: 8, Capacity of Array: 8
 Length of slice1: 4, Capacity of slice1: 7
 ```
 
-If we do not specify the `start_index`, slice operation default to position starting at index `0`. Similarly, if we do not specify `end_index` position, it defaults to end of underlying array.
+If you do not specify the `start_index`, slice operation default to position starting at index `0`. Similarly, if you do not specify `end_index` position, it defaults to end of underlying array.
 
 **Example:**
 ```go
