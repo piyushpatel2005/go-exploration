@@ -1,6 +1,6 @@
 # Conditionals
 
-Conditional constructs in Programming languages allow us to make decision based on certain conditions. Usually every programming language has such kind of constructs using `if...else` keywords. These usually take a logical statement and based on whether it returns `true` or `false`, one of the blocks get executed.
+Conditional constructs in programming languages allow us to make decision based on certain conditions. Usually every programming language has such kind of constructs using `if...else` keywords. These usually take a logical statement and based on whether it returns `true` or `false`, one of the blocks get executed.
 
 ## Overview
 
@@ -30,7 +30,7 @@ flowchart TD;
     C -->|false| E[End]
 {{< /mermaid >}}
 
-In this case, we check the condition and if this condition is `true`, the If block statements get executed else the flow skips the `if` block.
+In this case, we check the condition and if this condition evaluates to `true`, the `if` block gets executed. If the condition evaluates to `false`, the `else` block statements get executed.
 
 ```go
 package main
@@ -52,7 +52,7 @@ func main() {
 Ending the loop
 ```
 
-If we modify the `num` variable with a value of `20`. It returns below result.
+If you modify the `num` variable with a value of `20`. It returns below result.
 
 ```output{ lineNos=false }
 20
@@ -201,4 +201,4 @@ Oh no, you need valid driving licence to drive.
 
 ## Conclusion
 
-In this lesson, we learned about different ways to write `if..else` statements in Go.
+In this lesson, you learned about different ways to write `if..else` statements in Go.

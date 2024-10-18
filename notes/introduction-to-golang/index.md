@@ -12,7 +12,7 @@ Let's understand a brief history of go programming language. Go was developed at
 2. Go language is very fast. Machine language are CPU instructions and are very simple and straight forward and it runs directly on processors. Go is a high level language. Go run at machine code and there is no intermediate virtual machine code like JVM, so it is very fast.
 3. Go language also has garbage collection for automatic memory management and we don't have to worry about allocating and deallocating memory to objects.
 4. Go is very concise and has type inference. This means that go is statically typed but still we don't have to specially mention the types. So, it still feels like dynamic languages like Python.
-5. Go is developed for parallel programming and hence has built-in support for multi-threading.
+5. Go is developed for parallel programming and hence has built-in support for multi-threading. It provides solid constructs out of box like channels, go routines to simplify writing concurrent code.
 6. It has many of the built-in tooling using go command line such as `build`, `test`, `run`, etc.
 7. Module system so that code base is small and we get only what we need.
 

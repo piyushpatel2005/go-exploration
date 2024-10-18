@@ -17,6 +17,16 @@ var c chan string
 c := make(chan string)
 ```
 
+You can also create channel of any custom type or using pointer to any custom type.
+
+```go
+type Foo struct {
+
+}
+
+c := make(chan Foo)
+```
+
 Let's look at some common operations with channels.
 
 1. You can send a value to a channel using `<-` operator. For this to work, the data type of input must match the channel type.

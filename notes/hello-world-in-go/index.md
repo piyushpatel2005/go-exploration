@@ -17,9 +17,9 @@ func main() {
 ```
 
 Let's dissect this code a bit.
-The first line of the code is `package` statement. We will learn about packages more, however, keep in mind that the executable code should always reside in package called `main`. This file also contains a function called `main()` on line 5. This is the entry point of this code. So, when we run this code file, it will execute all lines of this `main` function. As you can see the functions are declared using `func` keyword in Go. We will learn more about functions and all of these content throughout the tutorial.
+The first line of the code is `package` statement. We will learn about packages in the upcoming lessons, however, keep in mind that the executable code should always reside in package called `main`. The `main` package must have a `main()` method. The `main()` function is the entry point of this code. So, when you run this code file, it will execute all lines of this `main` function. As you can see the functions are declared using `func` keyword in Go. We will learn more about functions and all of these content throughout the tutorial.
 
-Next, on line 3, we have `import` statement. Go has module system with which we can bring in code written by other developers. This helps with code-reusability as we do not have to write the same code repeatedly. We can simply re-use existing module. Here, we import `fmt` module which is used for text formatting. On line 5, after `main()` function we have set of curly brances `{...}`. This denotes the start and end of the code block. In this case, it means that `main` function starts on line 5 and ends on line 7. The statements written between these two lines will get executed one after another.
+Next, on line 3, we have `import` statement. Go has module system with which you can bring in code written by other developers. This helps with code-reusability as you do not have to write the same code repeatedly. You can simply re-use existing packages. Here, we import `fmt` module which is used for text formatting. On line 5, after `main()` function we have set of curly brances `{...}`. This denotes the start and end of the code block. In this case, it means that `main` function starts on line 5 and ends on line 7. The statements written between these two lines will get executed one after another.
 
 On line 6, we have single statement `fmt.Println("Hello World")`. This uses our imported `fmt` package and uses a function called `Println` from that package. This function takes a parameter `"Hello World"` which is what it prints. Note that this function prints the data and moves to the next line. Let's test out the execution.
 
@@ -32,9 +32,7 @@ go run main.go
 Hello World
 ```
 
-{{< admonition note >}}
-In above execution, `$` symbol is used as a prompt representation. You do not need to actually write that. Actual command is `go run main.go` but `$` is there only for representation.
-{{< /admonition >}}
+> In above execution, `$` symbol is used as a prompt representation. You do not need to actually write that. Actual command is `go run main.go` but `$` is there only for representation.
 
 ## Experiment with Code
 

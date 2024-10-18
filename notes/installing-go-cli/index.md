@@ -13,9 +13,15 @@ This takes us to respective version download for different operating system. Dep
 For Ubuntu or UNIX based systems we can install them by following below commands.
 
 ```shell{.show-prompt-all lineNos=false}
-sudo tar -C /usr/local -xzf go1.12.6.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.20.2.linux-amd64.tar.gz
 tar -xzf go*.tar.gz
 sudo cp -r go /usr/local/
+```
+
+If you have any package manager, you can use those to easily install Go binaries. For example, on ubuntu with new `snap` package manager, you can simply run below command.
+
+```shell
+snap install go --classic
 ```
 
 Once Go is installed, you can verify the installation by typing `go version` on your terminal or command prompt. This should show the installed version of Go binaries.

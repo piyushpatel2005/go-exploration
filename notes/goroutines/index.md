@@ -45,7 +45,7 @@ go run main.go
 Hello from main
 ```
 
-When you run this code, you may or may not see output from the `test_routine()` function. This is because goroutine runs in separate parallel process. The `main()` function does not wait until the routine has finished. It executes the next statement of printing from main and then terminates the `main()` function ending the program. There is not enough time for `test_routine` to execute before the `main()` function ends. 
+When you run this code, you may or may not see output from the `test_routine()` function. This is because goroutine runs in separate parallel process. It basically runs asynchronously outside the context of `main()` function. The `main()` function does not wait until the routine has finished. It executes the next statement of printing from main and then terminates the `main()` function ending the program. There is not enough time for `test_routine` to execute before the `main()` function ends. 
 
 To see output from `test_routine()` we can provide manual pause to `main()` function control flow. We can use `time.Sleep()` to sleep for a second or more if we want.
 

@@ -1,6 +1,6 @@
 # Operators
 
-Golang provides different operators to perform different kinds of operations. The main operators are arithmetic, comparison,logical, assignment and bitwise operators.
+Golang provides different operators to perform different kinds of operations. The main operator types are arithmetic, comparison,logical, assignment and bitwise operators.
 
 ## Overview
 

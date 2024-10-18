@@ -4,7 +4,7 @@ Even though we have `if...else` construct in Go, there may be situation when we 
 
 ### Common Switch Case Statement
 
-Switch..case statements provide multi-way control flow. This also has a `default` block which is executed if none of the `case` conditions match. The syntax for this looks like below.
+Switch-case statements provide multi-way control flow. This also has a `default` block which is executed if none of the `case` conditions match. The syntax for this looks like below.
 
 ```go
 switch expression {

@@ -19,7 +19,7 @@ var price float32
 var isActive bool
 ```
 
-When we declare the variable without initializing, the variables get what is called **zero value** in Go. These are like *default value*s in other programming languages. So, for example, in above code, the value of `id` will be `0` even though we have not explicitly assigned the value `0` to it. The value of variable `name` will be empty string and similarly `price` will have `0.00` and `isActive` will be `false`. 
+When you declare the variable without initializing, the variables get what is called **zero value** in Go. These are like *default value*s in other programming languages. So, for example, in above code, the value of `id` will be `0` even though we have not explicitly assigned the value `0` to it. The value of variable `name` will be empty string and similarly `price` will have `0.00` and `isActive` will be `false`. 
 
 **Example:**
 ```go
@@ -159,6 +159,8 @@ go run main.go
 ./main.go:8:9: cannot use "Hello" (untyped string constant) as int value in assignment
 ```
 
+In Go community, it's a standard practice to use shorthand notation if you're initializing a variable and use long variable declaration if you're not initializing those as that give clear idea on the type of the data.
+
 ## Constants
 
 Constants are like variables however once initialized, the value cannot be modified. These are declared using `const` keyword. We cannot declare a constant without initializing a value, i.e. the value cannot be assigned later or zero value does not apply to constants. Also, shorthand variable assignment does not apply to constants. They will usually have a global scope. The basic syntax for constants look like this.
@@ -208,7 +210,7 @@ There are also other container data types which we will discuss in lot more deta
 
 ### Define Custom Data types
 
-We can also define our own types using `type` keyword. This is usually used with another data types called `struct`s.
+You can also define our own types using `type` keyword. This is usually used with another data types called `struct`s which you'll learn in these introductory lessons.
 
 ```go
 type UserId int
