@@ -28,7 +28,7 @@ Function names follow similar convention as variable names.
 - Function name must begin with a letter, and can have any letters and numbers in the name, but cannot start with a number.
 - Function names are case-sensitive. So, name `greet` and `Greet` are not the same.
 - Function name cannot contain spaces.
-- If function name consists of multiple words, each word after the first should be capitalized like this. For example, fullName or FullName.
+- Function names follow either camelcase or pascal-case syntax. If function name consists of multiple words, each word after the first should be capitalized like this. For example, fullName or FullName. So far this lesson uses camelcase names because everything is in a single package `main`. However, in real-world applications, we should use pascal-case for function names as you may have declared those in another package.
 - Functions that will be exported outside the package, will have names starting with uppercase. If the function name starts with a lowercase letter, it won't be exported, but you can call this function within the same package. We will learn more about this later.
 
 Function can also be defined without any parameter or return type. Let's define a function without parameters first. 

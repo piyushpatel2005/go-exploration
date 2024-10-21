@@ -4,7 +4,7 @@ Pointers are one of the most powerful idea in programming, but this is also one 
 
 ## Overview
 
-In this lesson, we discuss pointers which are used to reference the memory address of a variable or data structure. When a variable is declared, a certain amount of memory is allocated based on the variable data type during the program execution. So, every time we execute the code, we may get different memory location. Pointer is something that holds the memory address of a variable. They do not only hold memory addresses but also point to where the memory is allocated and allows us to modify the value stored in that memory location. The same thing happens for functions as well, they are stored in memory. So, we can referene those functions and use them using pointers.
+In this lesson, we will discuss pointers which are used to reference the memory address of a variable or data structure. When a variable is declared, a certain amount of memory is allocated based on the variable data type during the program execution. So, every time we execute the code, we may get different memory location. Pointer is something that holds the memory address of a variable. They do not only hold memory addresses but also point to where the memory is allocated and allows us to modify the value stored in that memory location. The same thing happens for functions as well, they are stored in memory. So, we can referene those functions and use them using pointers.
 
 There are two main operators when working with pointers.
 1. **address of operator** (`&`) gives the memory address of a variable. To use this, we precede `&` before the name of the variable.

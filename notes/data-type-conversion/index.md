@@ -67,9 +67,7 @@ import (
 
 The processing of converting a value of one type to another is called *type casting*. The easiest way to convert to different type is to wrap the variable with the type we want to convert to.
 
-{{< admonition "note" >}}
-Data types can be converted to different type, but it can also result in loss of some precision. When we convert wider type into narrow type, that will result in precision loss. For example, converting `float` to `int` would result in some precision loss.
-{{< /admonition >}}
+> Data types can be converted to different type, but it can also result in loss of some precision. When we convert wider type into narrow type, that will result in precision loss. For example, converting `float` to `int` would result in some precision loss.
 
 ```go{ filename="main.go" }
 package main
@@ -94,9 +92,7 @@ func main() {
 39
 ```
 
-{{< admonition "warning" >}}
-If we try to convert incompatible types from one type to another, it will result in compilation error.
-{{< /admonition >}}
+> **Note:** If we try to convert incompatible types from one type to another, it will result in compilation error.
 
 Below code throws an error as Go compiler doesn't know how to convert word `hello` to integer.
 

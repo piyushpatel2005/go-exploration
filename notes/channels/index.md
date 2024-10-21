@@ -2,22 +2,20 @@
 
 Channels are a way to send and receive data between Go routines. It acts as pipes that connects different goroutines with each other for data exchange.
 
-<!--more-->
-
 ## What are Go channels?
 
-Channels are a way through which different go-routines communicate. It's like a data exchange mechanism in Go which allows us to exchange data between different parts of go-routine. Channels make concurrent programming easier. Traditional threading models were communicating by sharing memory, however, channels try to avoid that because that can result in nasty bugs. In traditional concurrent programming, these shared memory is locked by threads. There is possiblity of deadlock and thread contention over that data. 
+Channels are a way through which different go-routines communicate. It's like a data exchange mechanism in Go which allows us to exchange data between different parts of go-routine. Channels make concurrent programming easier. Traditional threading models were communicating by sharing memory, however, channels try to avoid that because that can result in nasty bugs. In traditional concurrent programming, these shared memory is locked by threads and due to that there is possibility of deadlock and thread contention over that data. 
 
-Go routines and channels allow access to data using channels. Channels share memory by communicating which ensures that at a given time, only one routine has access to the memory. The communication in the channels is bi-directional, that is you can send and receive values using the same channel. When you send data to a channel, the program execution control is blocked until another goroutine reads from this channel. This way go-routines synchronize without the use of locks or conditional variables. The same thing happens when reading from a channel. The reading is blocked until another goroutine writes to the channel. 
+Go routines and channels allow access to data using channels. Channels share memory by communicating over a pipe which ensures that at a given time, only one routine has access to the memory. The communication in the channels is bidirectional, that is you can send and receive values using the same channel. 
 
-Each channels holds data of particular data type. Syntax for this looks like below. We use `chan` keyword to declare channel of specific type. For example, below is example of string data type channel.
+Each channels holds data of particular data type. Syntax for creating a channel looks like below. You can use `chan` keyword to declare channel of specific type. For example, below is example to create channel of  `string` data type.
 
 ```go
 var c chan string
 c := make(chan string)
 ```
 
-You can also create channel of any custom type or using pointer to any custom type.
+You can also create channel of any custom type or use a pointer to any custom type.
 
 ```go
 type Foo struct {
@@ -29,9 +27,103 @@ c := make(chan Foo)
 
 Let's look at some common operations with channels.
 
-1. You can send a value to a channel using `<-` operator. For this to work, the data type of input must match the channel type.
-2. You can receive a value from a channel using `<-ch`
-3. Close a channel using `close(ch)` function.
+- You can send a value to a channel using `<-` operator. For this to work, the data type of input must match the channel type.
+- You can receive a value from a channel using `<-ch`
+- You can close a channel using `close(ch)` function. This is useful when you're ranging over a channel and you want to signal that no more data will be sent to the channel.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	ch := make(chan string)
+	ch <- GetMessage()
+	output := <-ch
+	fmt.Println(output)
+}
+
+func GetMessage() string {
+	return "Hello"
+}
+
+```
+
+In above code, I have a simple function `GetMessage()` which return a `string` value. In the `main()` function, I have create a channel of type `string` and send the message to the channel using `ch <- GetMessage()`. The message is received from the channel using `<-ch` and assigned to a variable `output`. In next line, I am printing the `output`. When you execute this code, you will see the error `fatal error: all goroutines are asleep - deadlock!`. 
+
+As I mentioned earlier, channels can be thought of as pipes that connect different goroutines. When we send a message to the channel, it's like sending a message to the pipe. The message is not received until there is a receiver on the other end of the pipe. The pipe can hold only specific amount of data. By default, when we create a channel, it's unbuffered channel (i.e. it doesn't have capacity to hold data). So, when we send a message to the channel, it's blocked until the message is received by another goroutine. In this case, the `main` goroutine is blocked because there is no other goroutine to receive the message. Hence, it causes deadlock.
+
+To fix this, you can create a new goroutine to send the message to the channel.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    ch := make(chan string)
+    go func() {
+        ch <- GetMessage()
+    }()
+    output := <-ch
+    fmt.Println(output)
+}
+
+func GetMessage() string {
+    return "Hello"
+}
+```
+
+## Range over Channel
+
+Channels you can think like a queue where you need both publisher and subscriber. If you want to process something, you will have to wait until the data is available in the channel. You can use `range` to iterate over the channel data. When you range over a channel, it will keep on reading data from the channel until the channel is closed. 
+
+```go
+// range over channel example
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 5; i++ {
+			ch <- Message(i)
+		}
+	}()
+	for msg := range ch {
+		fmt.Println(msg)
+	}
+}
+
+func Message(n int) string {
+	return "message " + strconv.Itoa(n)
+}
+```
+
+In above code, I have a function `Message()` which takes an integer and returns a string message. In the `main()` function, I have created a channel of type `string`. I have created a goroutine which sends 5 messages to the channel. In the next line, I have used `range` to iterate over the channel data. If you execute this code, you will see those messages, but at the end of the messages, you will again see the deadloock related error. This is because the `main` goroutine is waiting for more data to be sent to the channel. It has no idea that there will not be any new messages.
+
+The `range` will keep on reading data from the channel until the channel is closed. In order to fix this, we have to close the channel once we are done sending messages using `close(ch)`.  Below is the updated code.
+
+```go
+func main() {
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 5; i++ {
+			ch <- Message(i)
+		}
+		close(ch)
+	}()
+	for msg := range ch {
+		fmt.Println(msg)
+	}
+}
+```
+
+Let's see how channels help with synchronization in Go.
 
 ```go
 package main
@@ -56,9 +148,9 @@ func hello(ch chan string) {
 }
 ```
 
-This code declares a channel `ch` of type `chan string`. The next line creates this variable using `make()` function. The goroutine `hello` is passed reference to the channel and inside this routine, it sends a message `"Hello"` to the channel. In the `main()` function, we receive this data from the channel in `msg` variable which is printed when we run this code.
+This code declares a channel `ch` of type `chan string`. The next line creates and assigns channel using `make()` function. The goroutine `hello` is passed reference to the channel and inside this routine, it sends a message `"Hello"` to the channel. In the `main()` function, we receive this data from the channel in `msg` variable which is printed when we run this code.
 
-The data sent in channel can be received only once in any of the goroutines. By default, when we created channel, it creates unbuffered channel. Earlier, we need `time.Sleep()` or `WaitGroup` in order to make sure that we allow other goroutines to finish before `main` goroutine. However, in the output, notice that the `main` goroutine waits until you've read from the channel. This means it's going to block the execution of goroutine sending the data until the other go routine has received previous value. If you add a delay in `hello` goroutine, this can be easily seen that `main` goroutine is waiting for `hello` routine to finish.
+The data sent in channel can be received only once in any of the goroutines. By default, when we created channel, it creates unbuffered channel. Earlier, we need `time.Sleep()` or `WaitGroup` in order to make sure that we allow other goroutines to finish before `main` goroutine. However, in the output, notice that the `main` goroutine waits until you've read from the channel. This means it's going to block the execution of goroutine sending the data until the other go routine has received previous value. If you add a a second delay in `hello` goroutine, you can notice that `main` goroutine is waiting for `hello` routine to finish.
 
 ```go
 func hello(ch chan string) {
@@ -157,6 +249,7 @@ This code execution takes only 2 seconds.
 
 When we created channels above, they were by default **unbuffered channels**. This means it will block the execution of go routine sending the data until the other go routine has received the previously sent data. The receiver on a channel is blocked until there is some data coming in from another go routine into that channel. This type of channels are called Unbuffered channels. Tehy need a receiver as soon as a message is emitted to the channel. They do not have buffer which means they do not have capacity to hold on to data so we don't have to specify `capacity` of the channel when creating a channel using `make` function. They do not store data, so they do not have any length.
 
+When you send data to a channel, the program execution control is blocked until another goroutine reads from this channel. This way go-routines synchronize without the use of locks or conditional variables. The same thing happens when reading from a channel. The reading is blocked until another goroutine writes to the channel.
 For unbuffered channels, the length and the capacity is always zero.
 
 ## Buffered Channels

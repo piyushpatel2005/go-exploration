@@ -38,6 +38,8 @@ Go is one of the newest languages and it is growing in popularity very rapidly. 
 - [Channels](channels/index.md)
 - [Panic](panic/index.md)
 - [Select Statement](select-statement/index.md)
+- [Mutexes](mutexes/index.md)
+- [Atomic Operations](atomic-operations/index.md)
 - [Error Handling](error-handling/index.md)
 - [Modules and Packages](packages-and-modules/index.md) <!-- TODO: Verify code snippets -->
 - [Unit Testing](unit-testing/index.md)

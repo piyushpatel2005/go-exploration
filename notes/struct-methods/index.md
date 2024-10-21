@@ -7,20 +7,20 @@ In this tutorial, I explain more about methods in Go. In Go, we don't have conce
 Firstly, let's first understand the difference between functions and methods in Go. Below code shows syntax difference.
 
 ```go
-type myStruct struct {
+type MyStruct struct {
    field int
 }
 
-func myFunction(a myStruct) { }  // This is a function
+func MyFunction(a myStruct) { }  // This is a function
 
-func (a myStruct) myMethod() { } // This is a method
+func (a myStruct) MyMethod() { } // This is a method
 ```
 
 Functions are pieces of code that can be called from anywhere else in your code while methods are attached to *a particular type* and can be invoked specifically on an instance of that type. This is very important difference. So, function call and method call would look very different as shown in below snippet.
 
 ```go
-myFunction(m) // function call
-m.myMethod() // method call
+MyFunction(m) // function call
+m.MyMethod() // method call
 ```
 
 Let's take an example of a bank.
@@ -58,7 +58,7 @@ true
 true
 ```
 
-## Define new methdods on existing type
+## Define new methods on existing type
 
 We can define a new type, that is basically same as existing type. For example, below code creates a new type `Number` which looks like an alias to `int` type.
 
@@ -71,13 +71,13 @@ type Number struct {
    digit int
 }
 
-func (n Number) setValue(val int) {
+func (n Number) SetValue(val int) {
    n.digit = val
 }
 
 func main() {
    num := Number{digit: 5}
-   num.setValue(10) // This modifies local value
+   num.SetValue(10) // This modifies local value
    fmt.Println(num.digit) // 5 
 }
 ```
@@ -90,13 +90,13 @@ package main
 import "fmt"
 
 // cannot define new methods on non-local type int
-func (n int) setValue(val int) {
+func (n int) SetValue(val int) {
 	n.digit = val
 }
 
 func main() {
 	var a int = 4
-	fmt.Println(a.setValue(100))
+	fmt.Println(a.SetValue(100))
 }
 ```
 
@@ -112,13 +112,13 @@ type Number struct {
    digit int
 }
 
-func (n Number) setValue(val int) {
+func (n Number) SetValue(val int) {
    n.digit = val
 }
 
 func main() {
    num := Number{digit: 5}
-   num.setValue(10) // This modifies local value
+   num.SetValue(10) // This modifies local value
    fmt.Println(num.digit) // Outputs: 5 
 }
 ```
@@ -136,19 +136,19 @@ type Number struct {
 	digit int
 }
 
-func (n Number) setValue(val int) Number {
+func (n Number) SetValue(val int) Number {
 	n.digit = val
 	return n
 }
 
 func main() {
 	num := Number{digit: 5}
-	num = num.setValue(10)
+	num = num.SetValue(10)
 	fmt.Println(num.digit) // 10
 }
 ```
 
-However, this potentially creates unnecesary copy of the variable when we really wanted original `num` to be modified. We can fix this using pointers.
+However, this potentially creates unnecessary copy of the variable when we really wanted original `num` to be modified. We can fix this using pointers.
 
 ## Passing Arguments as Pointers
 But what if we want modifications inside the function to affect our original struct? We need to pass pointer to struct instead of value. 
@@ -162,13 +162,13 @@ type Number struct {
     digit int
 }
 
-func (n *Number) setPointerValue(val int){
+func (n *Number) SetPointerValue(val int){
     n.digit = val
 }
 
 func main(){
     num := &Number{digit: 5} // declare it as pointer using &
-    num.setPointerValue(10)
+    num.SetPointerValue(10)
     fmt.Println(num.digit)// 10
 }
 ```
@@ -182,13 +182,13 @@ type Number struct {
     digit int
 }
 
-func (n *Number) setPointerValue(val int){
+func (n *Number) SetPointerValue(val int){
     n.digit = val
 }
 
 func main(){
     num := Number{digit: 5}
-    num.setPointerValue(10)
+    num.SetPointerValue(10)
     fmt.Println(num.digit)// 10
 }
 ```
@@ -202,16 +202,16 @@ type Number struct {
     digit int
 }
 
-func (n Number) setPointerValue(val int){
+func (n Number) SetPointerValue(val int){
     n.digit = val
 }
 
 func main(){
     num := &Number{digit: 5} // declare it as pointer using &
-    num.setPointerValue(10)
+    num.SetPointerValue(10)
     fmt.Println(num.digit)// 5
 }
 ```
 
-- If function accepts avlue type, it will only accept value arguments and similarly, if it accepts pointer type, it can only accept reference arguments.
+- If function accepts value type, it will only accept value arguments and similarly, if it accepts pointer type, it can only accept reference arguments.
 - On the other hand, if a method accepts value receiver, it will accept either pointer and value arguments and if it accepts pointer receiver, it will accept either type of argument.

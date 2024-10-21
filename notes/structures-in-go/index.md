@@ -1,10 +1,10 @@
 # Structures
 
-Structures are one of the ways to organize data into structured data structure. This is also the data structure which helps avoid having objects and classes because we can define the blueprint of data using `struct`s.
+Structs are one of the ways to organize data into structured data structure. This is also the data structure which helps avoid having objects and classes because we can define the blueprint of data using `struct`s.
 
 ## Overview
 
-Structure is a user-defined data type which groups several data elements for related entity. This allows to store multiple values of different data types under single variable name. For example, a person may have name, address, citizenship, security number, etc. So, we can create a struct for Person and it can include all these information for a person under single variable.
+Structs are user-defined data type which groups several data elements for related entity. This allows to store multiple values of different data types under single variable name. For example, a person may have name, address, citizenship, security number, etc. So, we can create a struct for Person and it can include all these information for a person under single variable.
 
 ## Define and Initialize Structure
 

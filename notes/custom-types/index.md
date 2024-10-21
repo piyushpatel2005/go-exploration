@@ -31,7 +31,7 @@ func main() {
 }
 ```
 
-Here, I've defined custom type `Point` which consists of its x and y coordinates. You can create a variable of type `Point` and access its fields.
+Here, I've defined custom type `Point` which consists of its x and y coordinates. You can create a variable of type `Point` and access its fields. Notice that I have defined the new type with pascal case notation. This way it is exported and can be used outside the package.
 
 **Output:**
 
@@ -41,7 +41,7 @@ Here, I've defined custom type `Point` which consists of its x and y coordinates
 {0 0}
 ```
 
-Struct assigns contiguous blocks of memory for each of its members. So, if we have a struct with 2 fields of `int16`, it will assign 4 bytes plus a padding bytes.
+Struct assign contiguous blocks of memory for each of its members. So, if we have a struct with 2 fields of `int16`, it will assign 4 bytes plus a padding bytes.
 
 ### `new` Keyword
 

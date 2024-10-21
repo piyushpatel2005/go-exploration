@@ -4,7 +4,7 @@ Go routines is the mechanism used in Go to create concurrent programs. A gorouti
 
 ## Overview
 
-Go routines can be executed concurrently with other go-routines and it is the fundamental way to execute concurrent programs in Go. Go routines are managed by Go runtime. The syntax looks like below which applies to functions or methods. `go` keyword makes it run in a separate go routine.
+Go routines can be executed concurrently with other go-routines and it is the fundamental way to execute concurrent programs in Go. Go routines are managed by Go runtime. The syntax looks like below which applies to functions or methods. `go` keyword makes it run in a separate go routine. This is like asynchronous execution.
 
 ```go
 go func_name()
@@ -14,7 +14,7 @@ Other programming languages use the concept of threads to achieve concurrency. I
 
 ### Comparison of Threads and Go routine
 
-- go routines are cheaper. Just few KBs in stack and stack can grow and shrink in size in Go. With threads, stack size has to be specified upfrtont and is fixed in size. OS threads generally start with 1MB size. Go routines are cheap so we can start hundreds of thousands of go-routines.
+- Go routines are cheaper. Just few KBs in stack and stack can grow and shrink in size in Go. With threads, stack size has to be specified upfrtont and is fixed in size. OS threads generally start with 1MB size. Go routines are cheap so we can start hundreds of thousands of go-routines.
 - Go routines are multiplexed to a fewer number of OS threads. Even a single OS thread can handle 1000s of go routines.
 - Scheduling of go routines is managed by Go runtime. So, it's faster. For threads, scheduling is done by OS runtime. So, context switching time for go-routines is much faster.
 - Go routines communicate using channels. Channels do not cause race condition when using shared memory. This is a powerful construct built into the language. It can be thought of bytes using with Go routines communicate with each other.
@@ -28,26 +28,26 @@ package main
 
 import "fmt"
 
-func test_routine() {
+func TestRoutine() {
 	fmt.Println("Hello from Goroutine")
 }
 
 func main() {
-	go test_routine()
+	go TestRoutine()
 	fmt.Println("Hello from main")
 }
 ```
 
-In this code, we have a simple function `test_routine()` which we call from `main()` using `test_routine()`. Notice that we have added `go test_routine()` which makes it a goroutine.
+In this code, I have a simple function `TestRoutine()` which I call from the `main()` function using `TestRoutine()`. Notice that I have prepended `go` before this function call which makes it a go-routine.
 
 ```output{ lineNos=false .show-prompt }
 go run main.go 
 Hello from main
 ```
 
-When you run this code, you may or may not see output from the `test_routine()` function. This is because goroutine runs in separate parallel process. It basically runs asynchronously outside the context of `main()` function. The `main()` function does not wait until the routine has finished. It executes the next statement of printing from main and then terminates the `main()` function ending the program. There is not enough time for `test_routine` to execute before the `main()` function ends. 
+When you run this code, you may or may not see output from the `TestRoutine()` function. This is because go-routine runs in separate parallel process. It basically runs asynchronously outside the context of `main()` function. The `main()` function does not wait until the routine has finished. In fact, in this code, `main()` function doesn't even know that there is another routine running. Once it calls that routine, it executes the next statement of printing from main and then terminates the `main()` function ending the program. There is not enough time for `TestRoutine()` to finish its execution before the `main()` function ends. 
 
-To see output from `test_routine()` we can provide manual pause to `main()` function control flow. We can use `time.Sleep()` to sleep for a second or more if we want.
+To see output from `TestRoutine()` we can provide manual pause to `main()` function control flow. We can use `time.Sleep()` to sleep for a second or more if needed.
 
 ```go
 package main
@@ -57,18 +57,18 @@ import (
 	"time"
 )
 
-func test_routine() {
+func TestRoutine() {
 	fmt.Println("Hello from Goroutine")
 }
 
 func main() {
-	go test_routine()
+	go TestRoutine()
 	fmt.Println("Hello from main")
 	time.Sleep(1 * time.Second)
 }
 ```
 
-With this, we always see the output from `Println` statement in `test_routine()`.
+With this, you will always see the output from `Println` statement in `TestRoutine()`.
 
 ```output{ .show-prompt lineNos=false }
 go run main.go 
@@ -76,9 +76,9 @@ Hello from main
 Hello from Goroutine
 ```
 
-This is just a hack that I've applied for now. Later on, I will show better options to control flow using WaitGroups and channels.
+This is just a hack that I've applied for now. Later on, I will show better options to control flow using `WaitGroup`s and channels.
 
-To actually see parallel execution of Goroutines, we can use the previous sequential program write that using goroutines.
+To actually see parallel execution of Goroutines, you can use the previous sequential program write that using goroutines.
 
 ```go
 package main
@@ -104,7 +104,7 @@ func printSequence(i int) {
 }
 ```
 
-In this code, we are using `printSequence` function as a goroutine. Previously, this code was taking around 100 seconds. With this little change, if we execute it, this finishes in 2 seconds. Also those two seconds are due to the `time.Sleep` call we have in the `main()` function.
+In this code, we are using `printSequence` function as a goroutine. Previously, this code was taking around 100 seconds. With this little change, if we execute it, this finishes in 2 seconds. Also, those two seconds are due to the `time.Sleep` call we have in the `main()` function.
 
 ## Goroutine Scheduler
 

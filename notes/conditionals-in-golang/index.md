@@ -22,13 +22,7 @@ if conditional {
 
 Let's first look at flow chart for `if` block.
 
-{{< mermaid >}}
-flowchart TD;
-    Start --> C{Condition Check}
-    C -->|true| D[If block statements]
-    D --> E[End]
-    C -->|false| E[End]
-{{< /mermaid >}}
+![If condition Flow](if-conditionals.png "If Condition Flow of Execution")
 
 In this case, we check the condition and if this condition evaluates to `true`, the `if` block gets executed. If the condition evaluates to `false`, the `else` block statements get executed.
 
@@ -63,14 +57,7 @@ Ending the loop
 
 Below is a flow chart for `if...else` statements in Go. In this case, if conditional check returns `true`, the if block gets executed otherwise else block gets executed.
 
-{{< mermaid >}}
-flowchart TD
-    Start --> C{Condition Check}
-    C -->|true| D[If Block]
-    D --> F[End]
-    C -->|false| E[Else Block]
-    E --> F[End]
-{{< /mermaid >}}
+![If Else Condition Flowchart](if-else-conditionals.png "If Else Condition Flow of Execution")
 
 Below code checks whether a person can drive or not depending on user's input.
 
@@ -106,18 +93,6 @@ Congratulations, you can drive
 
 This check is interesting. In this case, first it checks condition 1. If this returns `true` then first `if` block gets executed. If this returns `false`, then next we check for condition 2 in `else if` block. If this condition 2 returns `true`, `else if` block gets executed. If this also returns `false`, then we finally go to `else` block.
 
-{{< mermaid >}}
-flowchart TD
-    Start --> C{Condition 1}
-    C -->|true| D[If Block]
-    D --> F[End]
-    Start --> G{Condition 2}
-    G -->|true| H[Else If Block]
-    H --> F[End]
-    C -->|false| E[Else]
-    G -->|false| E[Else]
-    E --> F[End]
-{{< /mermaid >}}
 
 ```go
 package main
