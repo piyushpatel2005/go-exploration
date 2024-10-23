@@ -122,6 +122,14 @@ func division(a int, b int) (int, int) {
 2 2
 ```
 
+- If you only need one of the returned values, you can ignore the other values by using blank identifier denoated by underscore(`_`) 
+
+For instance, from above `division` function, you only want to read the `remainder`, you can use something like this. This is useful because you will not have to unnecessarily read the other variable values. Remember, in Go, you need to use the variable you declared in your code.
+
+```go
+_, remainder := division(8, 3)
+```
+
 ### Named Return Values
 Go also allows **named return values**. When we use this feature, we do not need to explicitly specify which local values we want to return. It will by default return the values for the named variables defined in the return type of the function declaration. There is also no need to declare the local variables as they are automatically declared. This improves code readability.
 

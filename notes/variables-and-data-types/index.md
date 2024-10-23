@@ -159,7 +159,20 @@ go run main.go
 ./main.go:8:9: cannot use "Hello" (untyped string constant) as int value in assignment
 ```
 
-In Go community, it's a standard practice to use shorthand notation if you're initializing a variable and use long variable declaration if you're not initializing those as that give clear idea on the type of the data.
+### Unused Variables
+
+Go strives for clean code and hence one of the restrictions with Go is that you cannot have any unused variables. If you declare a variable, it must be used in the program otherwise you will get compile-time error. Below code will throw an error because the variable `str` is unused. You can still create unused constants in Go. The compiler will not complain if you don't use a constant because constants cannot have a side effect, i.e. they cannot be changed. Let's take a look at how to create constants in Go.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var str string = "hi"
+    fmt.Println("Hello")
+}
+```
 
 ## Constants
 
@@ -174,6 +187,28 @@ For example,
 ```go
 const PI float32 = 3.14159
 ```
+
+Constants can also be created as untyped. You don't need to explicitly provide the data type for constants. As I mentioned earlier, compiler will not complain if you don't use a constant.
+In the code provided below, I have created three constants: `CITY`, `LIFE_EXPECTANCY` and `PI`. `CITY` is declared with explicit type `string` whereas `LIFE_EXPECTANCY` is created as untyped constant. Also, notice that I have not used these two constants anywhere in the code but compiler will still not complain.
+
+```go
+package main
+
+import "fmt"
+
+const City string = "New York"
+const lifeExpectancy = 80
+const PI float32 = 3.14159
+
+func main() {
+        fmt.Println(PI)
+}
+```
+
+In Go community, variables are named as camel case and constants are named as either camel case or pascal case. The variable name changes the scope of the variable where they are accessible. That's the reason Go doesn't follow the same convention as other programming languages where constants are always in uppercase. That would make all constants available accessible outside the package.
+
+It is also a standard practice to use shorthand notation if you're initializing a variable and use long variable declaration if you're not initializing those as that give clear idea on the type of the data.
+
 
 ## Data Types
 
@@ -197,6 +232,18 @@ As we saw in examples above that we have data types for primitive types like int
 | complex128 | complex number with 64-bit real and imaginary parts |
 | bool | boolean |
 | rune | same as int32 |
+
+Below example shows how to initialize some of these variable types.
+
+```go
+var anInt int = 10
+var aString string = "Hello"
+var aFloat float32 = 10.10
+var anInt64 int64 = 10
+var aFloat64 float64 = 10.10
+var aRune rune = 'A'
+var aBool bool = true
+```
 
 There are also other container data types which we will discuss in lot more detail in this tutorial series. These are arrays, slices, maps and structs. Below table gives brief idea about those, but we will see their examples throughout the tutorials.
 

@@ -217,6 +217,16 @@ for _, elem := range numbers {
 }
 ```
 
+- You can also compare two arrays using `==` operator. This will return `true` if both arrays are the same, that is their length and elements are the same.
+
+```go
+func main() {
+	numbers := [4]int{1, 2, 3, 4}
+	numbers2 := [...]int{1, 2, 3, 4}
+	fmt.Println(numbers == numbers2) // true
+}
+```
+
 ## Multi-Dimensional Arrays
 
 Multi-dimensional array is like an array of array with multiple dimensions. This is similar to matrices concept in mathematics. To access individual elements, we have to use multiple indices.

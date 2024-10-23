@@ -34,4 +34,16 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
+	// Labelled for loop
+
+	// outer:
+	// for i := 0; i < 5; i++ {
+	// 	for j := 0; j < 10; j++ {
+	// 		if i * j >= 25 {
+	// 			break outer
+	// 		}
+	// 		fmt.Printf("%d * %d = %d\n", i, j, i*j)
+	// 	}
+	// }
+
 }

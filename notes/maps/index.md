@@ -283,6 +283,17 @@ map[one:1 three:3 two:2]
 map[]
 ```
 
+- In recent versions(1.21.0 onwards) of Go, the `clear` function can also be used to clear a map.
+
+```go
+numbers := map[string]int{"one": 1, "two": 2, "three": 3}
+fmt.Printf("%v\n", numbers)
+clear(numbers)
+fmt.Printf("%v\n", numbers) // Output: map[]
+```
+
+Finally, Go community has added a new package [maps](https://pkg.go.dev/golang.org/x/exp/maps) which can be used to perform different operations with maps easily. These include copying, cloning, comparing and easily deleting specific key-value pairs.
+
 ## Conclusion
 
 In this lesson, we looked at various operations we can perform on Map data structure in Go. These are basically associative arrays with key-value pairs. We learned how to create a map, get element for a specific key, add new key-value pairs. We also learned how we can iterate over a map or delete map from memory.

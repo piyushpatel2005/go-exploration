@@ -131,3 +131,53 @@ func main() {
 4
 Breaking out of loop when i is 5
 ```
+
+### Labelled For Loop
+
+By default `continue` and `break` keywords apply to the loop enclosing these keywords. If you have nested loops, and you want to exit outer loop, you can use the labelled for loop syntax.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	outer:
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 10; j++ {
+			if i * j >= 25 {
+				break outer
+			}
+			fmt.Printf("%d * %d = %d\n", i, j, i*j)
+		}
+	}
+}
+```
+
+In this code, I have labelled outer for loop as `outer`. When the multiplication of `i` and `j` is greater than `25`, I am breaking out of the outer loop using `break outer`.
+
+## For range loop
+
+In Go, you can use `for range` loop to iterate through arrays, slices, maps and strings. You will learn about these data types later in the tutorials. However, this is what `for range` loop looks like.
+
+```go
+for key, value := range collection {
+	...
+}
+```
+
+In below example, I am iterating through `names` slice and printing the values.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	names := []int{1, 2, 3, 4, 5}
+
+	for index, number := range numbers {
+		fmt.Println(number)
+	}
+}
+```

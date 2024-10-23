@@ -329,6 +329,13 @@ In above code, we start with a slice same as an array that is with elements 1 to
 [1 2 4 5 6]
 ```
 
+- In Go 1.21 and above, you can use `clear` function to delete all elements from a slice.
+
+```go
+numbers := []int{1, 2, 3, 4, 5, 6}
+clear(numbers)
+```
+
 ## Copying Slice
 
 There is also [copy function](https://pkg.go.dev/builtin#copy) which copies all elements of the source slice into destination slice. This function returns the number of elements copied. Here, both slices have to be of the same type otherwise Go compiler throws an error.
