@@ -17,3 +17,16 @@ go mod init github.com/piyushpatel2005/hotel-reservation
 go get github.com/gofiber/fiber/v2
 ```
 ## Requirements
+
+- Go 1.21
+- Fiber v2
+- Docker
+- Docker Compose
+
+```shell
+docker run --name mongodb -d mongo:latest -p 27017:27017
+```
+
+```shell
+go get go.mongodb.org/mongo-driver/mongo
+```
