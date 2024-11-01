@@ -147,7 +147,7 @@ As you can see in the output above, all pointers refer to same memory address an
 
 ## Argument - Pass by Value
 
-Now that we are aware of pointers, we can understand argument passing by value. In this case, the parameters are copied into another local variable and different location of the memory. That copy is accessible only within the scope of the function and when we modify that variable, it will modify only the copy and will not change the original variable we passed when calling the function.
+Now that we are aware of pointers, we can understand argument passing by value. In this case, the parameters are copied into another local variable and different location of the memory. That copy is accessible only within the scope of the function and when we modify that variable, it will modify only the copy and will not change the original variable we passed when calling the function. Go by default uses pass by value for both primitive types as well as structs. You still have the option of passing by reference by using pointers.
 
 **Example:**
 
@@ -288,6 +288,7 @@ map[Canada:English France:French Spain:Spanish USA:English]
 map[Canada:French France:French Spain:Spanish USA:English]
 ```
 
+> **Note:** In Go, maps are implemented as a pointer to a struct. This means passing map to a function is passed by reference. 
 ## Conclusion
 
 In this lesson, we saw how we can use pointers to modify the values of a variable or any memory address. This also explains how we can pass variables by value or by reference. Slice, Maps and other complex data types are, by default, pass by reference.

@@ -29,7 +29,7 @@ Go is one of the newest languages and it is growing in popularity very rapidly. 
 - [Struct Methods](struct-methods/index.md)
 - [Interfaces in Go](interfaces/index.md)
 - [Enums](enums/index.md)
-- [Inheritance using Structs](inheritance-using-structs/index.md)
+- [Composition using Structs](composition-using-structs/index.md)
 - [Sorting](sorting/index.md)
 - [Working with time](working-with-time/index.md)
 - [Concurrency Overview](concurrency-overview/index.md)

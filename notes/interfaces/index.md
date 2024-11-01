@@ -248,3 +248,5 @@ The cool thing with interfaces is that if you now try to pass `Bird` into `teach
 ```output{ lineNos=false }
 cannot use b (variable of type Bird) as Humanoid value in argument to teach: Bird does not implement Humanoid (missing method Study)
 ```
+
+In other languages, you would accept parameter to be of more general type. This allows for flexibility. In Go, you should do similar things. Your code can accept parameter of an interface type. That way, you can accept any type that implements that interface. However, while returning value, you should always prefer a concrete type. This principle is called "Accept interface, return struct".
