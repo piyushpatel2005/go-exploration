@@ -43,3 +43,4 @@ Go is one of the newest languages and it is growing in popularity very rapidly. 
 - [Error Handling](error-handling/index.md)
 - [Modules and Packages](packages-and-modules/index.md) <!-- TODO: Verify code snippets -->
 - [Unit Testing](unit-testing/index.md)
+- [Context](context/index.md)
