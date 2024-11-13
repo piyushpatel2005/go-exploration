@@ -1,6 +1,7 @@
-# Inheriting from a struct
+# Composition from a struct
 
-Inheritance is a way to create a new struct that reuses the properties of an existing struct. This is useful when you want to create a new struct that is similar to an existing struct, but with some additional properties. This is a very common practice in object-oriented programming languages where you define more generic classes as parent classes and then create more specific classes as child classes that inherit from the parent class. In Go, we don't have a concept of a class. However, we can achieve similar functionality using structs.
+
+Go promotes composition over inheritance. Composition is a way to create a new struct that reuses the properties of an existing struct. This is useful when you want to create a new struct that is similar to an existing struct, but with some additional properties. This is a very common practice in object-oriented programming languages where you define separate classes for each functionality and then you can use those classes as a member for another class. In Go, we don't have a concept of a class. However, we can achieve similar functionality using structs.
 
 Let's define our more generic parent struct called `Person`:
 
@@ -129,3 +130,5 @@ func (ev ElectricVehicle) String() string {
     return ev.Vehicle.String()
 }
 ```
+
+ Even though embedding a struct looks like inheritance, it's actually not. It is composition.

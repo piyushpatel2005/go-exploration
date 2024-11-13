@@ -60,7 +60,7 @@ true
 
 ## Define new methods on existing type
 
-We can define a new type, that is basically same as existing type. For example, below code creates a new type `Number` which looks like an alias to `int` type.
+You can define a new type, that is basically same as existing type. For example, below code creates a new type `Number` which looks like an alias to `int` type.
 
 ```go
 package main
@@ -82,7 +82,7 @@ func main() {
 }
 ```
 
-This might raise a question, why would you do this? In Go, we cannot define a new method on `int` type. As a matter of fact, in Go, the definition of the receiver type must be in the same package as the new method. So, we cannot define any methods on existing types because they are not in the package, we define. If we try to create a method on `int` type, we get compile error.
+This might raise a question, why would you do this? In Go, we cannot define a new method on `int` type. As a matter of fact, in Go, the definition of the receiver type must be in the same package as the new method. Receiver type is the type to which the new method is attached.So, we cannot define any methods on existing types because they are not in the package, we define. If we try to create a method on `int` type, we get compile error.
 
 ```go
 package main
@@ -100,7 +100,7 @@ func main() {
 }
 ```
 
-## Passing Arguments as Values
+## Value Receiver
 A method with value receiver gets the copy of the original value that you passed into it, meaning any changes won't affect the original struct instance.
 
 ```go
@@ -150,8 +150,8 @@ func main() {
 
 However, this potentially creates unnecessary copy of the variable when we really wanted original `num` to be modified. We can fix this using pointers.
 
-## Passing Arguments as Pointers
-But what if we want modifications inside the function to affect our original struct? We need to pass pointer to struct instead of value. 
+## Pointer Receiver
+What if we want modifications inside the function to affect our original struct? Well, in that case, you need to pass pointer to struct instead of value. 
 
 ```go
 package main
@@ -173,7 +173,7 @@ func main(){
 }
 ```
 
-Passing a pointer to our struct allows us to modify the original data.
+Attaching pointer receiver allows us to modify the value stored in the same memory location.
 
 This works but what if we pass the variable but receiver is of pointer type? 
 
@@ -215,3 +215,9 @@ func main(){
 
 - If function accepts value type, it will only accept value arguments and similarly, if it accepts pointer type, it can only accept reference arguments.
 - On the other hand, if a method accepts value receiver, it will accept either pointer and value arguments and if it accepts pointer receiver, it will accept either type of argument.
+
+### Points to Consider when choosing recevier type
+
+1. If your method modifies the receiver, it should be of pointer type.
+2. If your method accesses the receiver, it should be of value type.
+3. If your method needs to handle `nil` value, it should be of pointer type.
