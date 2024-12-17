@@ -1,4 +1,4 @@
-# Setting up your Project
+# Project Setup
 
 In order to start working with a new project, you need to have your project organized into proper structure. This is usually done using a directory structure.
 
@@ -20,6 +20,7 @@ While developing web applications, you need to handle different HTTP requests us
 
 Now you might wonder if you have multiple paths then how does the web server know which function or handler to execute for each of those. This is where router comes into play. Routers provide mapping of URL paths to handler functions. In Go, routing is handled using `serveMux` which is a HTTP request multiplexer.
 
+## Create Web server
 Create `main.go` file in the root of the project.
 
 ```shell
@@ -54,6 +55,8 @@ func main() {
 
 Now, if you visit `http://localhost:8000` in your browser, you should see `Hello there` printed on the screen.
 If you want to stop the server, you can press `Ctrl + C` in the terminal.
+
+## Handling Multiple Routes
 
 If you have multiple route handlers, you can add them as functions and map them using `mux.HandleFunc` method. One thing to note about URL patterns is that `servemux` supports two types of URL patterns.
 1. Fixed paths: `/about` and `/contact` are fixed paths. They will only match if the URL path is exactly `/about` or `/contact`.
@@ -93,20 +96,4 @@ func main() {
 }
 ```
 
-The root path `/` will match any URL path that is not matched by any other handler. You can try navigating to `http://localhost:8000/something` and you will still see the `Home page` displayed. So, it is recommended to keep it at the end of the list of handlers.
-
-If you want to create a default 404 page which you want to display if none of the routes match, then you have to include this as a condition in the `home` function.
-
-```go
-func home(w http.ResponseWriter, r *http.Request) {
-    if r.URL.Path != "/" {
-        http.NotFound(w, r)
-        return
-    }
-    w.Write([]byte("Home page"))
-}
-```
-
-This function will ensure that it's exactly `/` that will display the `Home page` and anything else will display a 404 page.
-
-With these change, if you now visit `/something`, you will get `404 page not found` message.
+The root path `/` will match any URL path that is not matched by any other handler. You can try navigating to `http://localhost:8000/something` and you will still see the `Home page` displayed. 
