@@ -1,0 +1,16 @@
+version: '3.9'
+# mysql -h localhost --port 3306 --protocol=tcp -u snippetbox -p
+services:
+  mysql:
+    container_name: snippetbox_container
+    image: mysql:latest
+    restart: always
+    ports:
+        - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: snippetbox
+        MYSQL_USER: snippetbox
+        MYSQL_PASSWORD: password
+    volumes:
+        - ./docker-volumes/mysql_data:/var/lib/mysql
