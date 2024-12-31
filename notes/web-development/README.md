@@ -10,3 +10,17 @@
 - [Logging](logging/index.md)
 - [Dependency Injection](dependency-injection/index.md)
 - [Error Handlers](error-handlers/index.md)
+- [Router](router/index.md)
+- [Database Models](database-models/index.md)
+    - Create models
+    - Create DAO layer
+    - Use in handler
+    - Handling NULL values
+    - Transactions
+    - Prepared Statements
+- [HTML Templates](html-templates/index.md)
+    - Passing Dynamic data
+    - Using Template Cache
+    - Handle errors while rendering
+    - Using Layouts
+    - Actions and Functions
